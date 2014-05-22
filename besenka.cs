@@ -6,7 +6,7 @@ namespace Proekt_KPK
     {
 		// hahaha, izpih edno kilo rakiya vcera i poznavam veche vsichki dumi4ki ot pyrvi puyt, muahahahahahahaaaaaaaa
 
-		//test plmb123
+		//test plmb123 
 
 
         static string RandomizeAWord(string[] arr)
