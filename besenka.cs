@@ -10,6 +10,8 @@ namespace Proekt_KPK
 
         //test plmb123 .gitignore in project folder
 
+        //test Dr4g0
+
 
         static string RandomizeAWord(string[] arr)
         {
