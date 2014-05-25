@@ -27,48 +27,48 @@ namespace Proekt_KPK
                 "array" , "method" , "variable"
             };
 
-            int l = 0;
+            int numberOfRevealed = 0;
             int health = 5;
             string word = RandomizeAWord(words);
             string dashWord = new String('-', word.Length);
-            while (l < word.Length && health > 0)
+            while (numberOfRevealed < word.Length && health > 0)
             {
                 string input = " ";
-                bool incorrectInput = false;
+                bool correctInput = true;
                 Console.WriteLine("The word to be guessed is:{0}", dashWord);
-                int bukvata = 0;
+                int letter = 0;
 
 
 
-                while ((bukvata < 'a' || bukvata > 'z') && (bukvata < 'A' || bukvata > 'Z'))
+                while ((letter < 'a' || letter > 'z') && (letter < 'A' || letter > 'Z'))
                 {
-                    if (incorrectInput)
+                    if (correctInput)
                     {
                         Console.WriteLine("You've entered incorrect input!");
                     }
                       
                     Console.Write("Input a letter:");
                     input = Console.ReadLine();
-                    bukvata = input[0];
-                    if ((bukvata >= 'A' && bukvata <= 'Z') && bukvata != 0)
+                    letter = input[0];
+                    if ((letter >= 'A' && letter <= 'Z') && letter != 0)
                     {
-                        bukvata += 32;
+                        letter += 32;
                     }
-                    incorrectInput = true;
+                    correctInput = true;
                 }
                   
-                incorrectInput = false;
+                correctInput = false;
                 bool isMatch = false;
 
                 char[] tempArr = dashWord.ToCharArray();
                 for (int i = 0; i < word.Length; i++)
                 {
-                    if (bukvata == word[i])
+                    if (letter == word[i])
                     {
                         tempArr[i] = word[i];
                         isMatch = true;
                           
-                        l++;
+                        numberOfRevealed++;
                     }
                 }
 
@@ -77,12 +77,12 @@ namespace Proekt_KPK
                 dashWord = new string(tempArr);
 
                 if (isMatch)
-                { Console.WriteLine("Good job! You revealed {0} of letters and your remaining errors is:{1}", l, health);
+                { Console.WriteLine("Good job! You revealed {0} of letters and your remaining errors is:{1}", numberOfRevealed, health);
                 }
                 else
                 {
                     health--;
-                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your health is now {1}", (char)bukvata, health);
+                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your health is now {1}", (char)letter, health);
                 }
             }
 
