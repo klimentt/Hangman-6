@@ -1,16 +1,17 @@
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Proekt_KPK
 {
-    class besenka
+    class Hangman
     {
 		// hahaha, izpih edno kilo rakiya vcera i poznavam veche vsichki dumi4ki ot pyrvi puyt, muahahahahahahaaaaaaaa
 
-		//test plmb123 
+		// test plmb123
 
-        //test plmb123 .gitignore in project folder
+        // test plmb123 .gitignore in project folder
 
-        //test Dr4g0
+        // test Dr4g0
 
 
         static string RandomizeAWord(string[] arr)
@@ -21,16 +22,17 @@ namespace Proekt_KPK
 
             return arr[r];
         }   
+
         static void Main(string[] args)
         {
             string[] words = 
             {
-                "computer", "programmer" , "software" , "debugger" , "compiler" , "developer" , "algorithm",
-                "array" , "method" , "variable"
+                "computer", "programmer", "software", "debugger", "compiler", "developer", "algorithm", 
+                "array", "method", "variable"
             };
 
             int numberOfRevealed = 0; // changed l to numberOfRevealed
-            int health = 5; //changed m to health
+            int health = 5; // changed m to health
             string word = RandomizeAWord(words);
             string dashWord = new String('-', word.Length);
             while (numberOfRevealed < word.Length && health > 0)
@@ -72,8 +74,6 @@ namespace Proekt_KPK
                     }
                 }
 
-
-
                 dashWord = new string(tempArr);
 
                 if (isMatch)
@@ -92,7 +92,7 @@ namespace Proekt_KPK
             }
             else
             {
-                Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!" , word);
+                Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word);
             }
         }
     }
