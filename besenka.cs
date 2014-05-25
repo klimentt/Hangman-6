@@ -30,10 +30,10 @@ namespace Proekt_KPK
             };
 
             int l = 0;
-            int m = 5;
+            int health = 5;
             string word = RandomizeAWord(words);
             string dashWord = new String('-', word.Length);
-            while (l < word.Length && m > 0)
+            while (l < word.Length && health > 0)
             {
                 string input = " ";
                 bool incorrectInput = false;
@@ -79,16 +79,16 @@ namespace Proekt_KPK
                 dashWord = new string(tempArr);
 
                 if (isMatch)
-                { Console.WriteLine("Good job! You revealed {0} of letters and your remaining errors is:{1}", l, m);
+                { Console.WriteLine("Good job! You revealed {0} of letters and your remaining errors is:{1}", l, health);
                 }
                 else
                 {
-                    m--;
-                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your health is now {1}", (char)bukvata, m);
+                    health--;
+                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your health is now {1}", (char)bukvata, health);
                 }
             }
 
-            if (m == 0)
+            if (health == 0)
             {
                 Console.WriteLine("You lost the game. Try again.");
             }
