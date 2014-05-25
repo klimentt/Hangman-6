@@ -14,15 +14,6 @@ namespace Proekt_KPK
         // test Dr4g0
 
 
-        static string RandomizeAWord(string[] arr)
-        {
-            Random rand = new Random();
-
-            int r = rand.Next(0, arr.Length);
-
-            return arr[r];
-        }   
-
         static void Main(string[] args)
         {
             string[] words = 
@@ -44,7 +35,7 @@ namespace Proekt_KPK
 
                 while ((letter < 'a' || letter > 'z') && (letter < 'A' || letter > 'Z'))
                 {
-                    if (correctInput)
+                    if (!correctInput)
                     {
                         Console.WriteLine("You've entered incorrect input!");
                     }
@@ -77,7 +68,7 @@ namespace Proekt_KPK
                 dashWord = new string(tempArr);
 
                 if (isMatch)
-                { Console.WriteLine("Good job! You revealed {0} of letters and your remaining errors is:{1}", numberOfRevealed, health);
+                { Console.WriteLine("Good job! You revealed {0} of the letters and your remaining errors is:{1}", numberOfRevealed, health);
                 }
                 else
                 {
@@ -95,5 +86,14 @@ namespace Proekt_KPK
                 Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word);
             }
         }
+
+        static string RandomizeAWord(string[] arr)
+        {
+            Random rand = new Random();
+
+            int r = rand.Next(0, arr.Length);
+
+            return arr[r];
+        }   
     }
 }
