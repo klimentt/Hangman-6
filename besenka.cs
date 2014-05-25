@@ -29,18 +29,16 @@ namespace Proekt_KPK
                 "array" , "method" , "variable"
             };
 
-            int numberOfRevealed = 0;
-            int health = 5;
+            int numberOfRevealed = 0; // changed l to numberOfRevealed
+            int health = 5; //changed m to health
             string word = RandomizeAWord(words);
             string dashWord = new String('-', word.Length);
             while (numberOfRevealed < word.Length && health > 0)
             {
                 string input = " ";
-                bool correctInput = true;
+                bool correctInput = true; // changed incorrectInput = false to correctInput = true
                 Console.WriteLine("The word to be guessed is:{0}", dashWord);
                 int letter = 0;
-
-
 
                 while ((letter < 'a' || letter > 'z') && (letter < 'A' || letter > 'Z'))
                 {
