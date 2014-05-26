@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Proekt_KPK
+namespace HangmanSix
 {
     class HangmanSix
     {
