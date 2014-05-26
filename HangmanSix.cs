@@ -1,8 +1,7 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HangmanSix
 {
+    using System;
+
     class HangmanSix
     {
 		// hahaha, izpih edno kilo rakiya vcera i poznavam veche vsichki dumi4ki ot pyrvi puyt, muahahahahahahaaaaaaaa
