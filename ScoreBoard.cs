@@ -1,4 +1,4 @@
-﻿namespace HangmanGame
+﻿namespace HangmanSix
 {
     using System;
 

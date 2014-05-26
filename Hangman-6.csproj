@@ -46,7 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="besenka.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="HangmanSix.cs" />
+    <Compile Include="PlayerWord.cs" />
+    <Compile Include="RandomUtils.cs" />
+    <Compile Include="ScoreBoard.cs" />
+    <Compile Include="SecretWord.cs" />
+    <Compile Include="Word.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
