@@ -1,7 +1,9 @@
 namespace HangmanSix
 {
     using System;
-
+    /// <summary>
+    /// Main engine class
+    /// </summary>
     class HangmanSix
     {
 		// hahaha, izpih edno kilo rakiya vcera i poznavam veche vsichki dumi4ki ot pyrvi puyt, muahahahahahahaaaaaaaa
