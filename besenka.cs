@@ -91,9 +91,9 @@ namespace Proekt_KPK
         {
             Random rand = new Random();
 
-            int r = rand.Next(0, arr.Length);
+            int randomNumber = rand.Next(0, arr.Length);
 
-            return arr[r];
+            return arr[randomNumber];
         }   
     }
 }
