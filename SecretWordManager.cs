@@ -18,12 +18,29 @@ using System.Collections.Generic;
 
         public void LoadAllSecretWords(string path) 
         {
-            string[] words = File.ReadAllLines(path
-);
-
-            foreach (string line in words)
+            try
             {
-                allSecretWords.AddRange(line.Split(','));
+                string[] words = File.ReadAllLines(path);
+                foreach (string line in words)
+                {
+                    allSecretWords.AddRange(line.Split(','));
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException("The word library was not found!");
+            }
+            catch (FileLoadException)
+            {
+                throw new FileLoadException("Unable to load word library!");
+            }
+            catch (PathTooLongException)
+            {
+                throw new PathTooLongException("The path specified is too long!");
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An Error occured in: " + e.StackTrace);
             }
         }
         
