@@ -18,16 +18,13 @@ namespace HangmanSix
 
         static void Main(string[] args)
         {
-            string[] words = 
-            {
-                "computer", "programmer", "software", "debugger", "compiler", "developer", "algorithm", 
-                "array", "method", "variable"
-            };
+            SecretWordManager words = new SecretWordManager();
+            words.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
 
             int numberOfRevealed = 0; // changed l to numberOfRevealed
             int health = 5; // changed m to health
             RandomUtils randomGenerator = new RandomUtils();
-            string word = randomGenerator.RandomizeWord(words);
+            string word = randomGenerator.RandomizeWord(words.AllSecretWords);
             string dashWord = new String('-', word.Length);
             while (numberOfRevealed < word.Length && health > 0)
             {
