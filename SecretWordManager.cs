@@ -2,7 +2,7 @@
 {
     using System;
     using System.IO;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Keeps all possible secret words
