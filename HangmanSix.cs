@@ -1,6 +1,7 @@
 namespace HangmanSix
 {
     using System;
+    using System.Collections.Generic;
     /// <summary>
     /// Main engine class
     /// </summary>
@@ -25,7 +26,8 @@ namespace HangmanSix
 
             int numberOfRevealed = 0; // changed l to numberOfRevealed
             int health = 5; // changed m to health
-            string word = RandomizeAWord(words);
+            RandomUtils randomGenerator = new RandomUtils();
+            string word = randomGenerator.RandomizeWord(words);
             string dashWord = new String('-', word.Length);
             while (numberOfRevealed < word.Length && health > 0)
             {
@@ -88,13 +90,6 @@ namespace HangmanSix
             }
         }
 
-        static string RandomizeAWord(string[] arr)
-        {
-            Random rand = new Random();
-
-            int randomNumber = rand.Next(0, arr.Length);
-
-            return arr[randomNumber];
-        }   
+        
     }
 }

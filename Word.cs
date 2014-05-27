@@ -2,7 +2,7 @@
 {
     using System;
 
-    public abstract class Word
+    public abstract class Word //may be this class is unnecessary
     {
         private string content;
 
@@ -22,7 +22,7 @@
                 this.content = value; 
             }
         }
-        
+
         public Word(string word)
         {
             this.Content = word;

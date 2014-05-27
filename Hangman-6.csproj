@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{53773CE9-1777-4A2F-AF7F-6959F0063371}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>HangmanGame</RootNamespace>
-    <AssemblyName>HangmanGame</AssemblyName>
+    <RootNamespace>HangmanSix</RootNamespace>
+    <AssemblyName>Hangman-6</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -46,16 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command.cs" />
+    <Compile Include="CommandManager.cs" />
     <Compile Include="HangmanSix.cs" />
+    <Compile Include="IAddable.cs" />
+    <Compile Include="IRemovable.cs" />
     <Compile Include="PlayerWord.cs" />
     <Compile Include="RandomUtils.cs" />
     <Compile Include="ScoreBoard.cs" />
-    <Compile Include="SecretWord.cs" />
+    <Compile Include="SecretWordManager.cs" />
     <Compile Include="Word.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
