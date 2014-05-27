@@ -1,6 +1,7 @@
 ﻿namespace HangmanSix
 {
     using System;
+    using System.IO;
 using System.Collections.Generic;
 
     /// <summary>
@@ -17,7 +18,12 @@ using System.Collections.Generic;
 
         public void LoadAllSecretWords() 
         {
-            //read from file and add to allSecretWords;
+            string[] words = File.ReadAllLines("//Resources//Words.txt");
+
+            foreach (string line in words)
+            {
+                allSecretWords.AddRange(line.Split(','));
+            }
         }
         
         public void Remove(int index)
