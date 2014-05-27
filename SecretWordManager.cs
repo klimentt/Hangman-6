@@ -6,7 +6,7 @@ using System.Collections.Generic;
     /// <summary>
     /// Keeps all possible secret words
     /// </summary>
-    public class SecretWordManager : IAddable, IRemovable
+    public class SecretWordManager : IExpandable, IRemovable
     {
         private List<string> allSecretWords=new List<string>();
 

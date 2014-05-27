@@ -6,7 +6,7 @@
     /// <summary>
     /// Keeps all possible commands given from player
     /// </summary>
-    public class CommandManager : IRemovable, IAddable
+    public class CommandManager : IRemovable, IExpandable
     {
         private List<string> allCommands = new List<string>();
 

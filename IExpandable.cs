@@ -1,6 +1,6 @@
 ﻿namespace HangmanSix
 {
-    interface IAddable
+    interface IExpandable
     {
         void Add(string str);
     }

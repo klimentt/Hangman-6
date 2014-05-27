@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
     <Compile Include="HangmanSix.cs" />
-    <Compile Include="IAddable.cs" />
+    <Compile Include="IExpandable.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="PlayerWord.cs" />
     <Compile Include="RandomUtils.cs" />
