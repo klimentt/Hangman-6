@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
         public void LoadAllSecretWords() 
         {
-            string[] words = File.ReadAllLines("//Resources//Words.txt");
+            string[] words = File.ReadAllLines("//Resources//secretWordsLibrary.txt ");
 
             foreach (string line in words)
             {
