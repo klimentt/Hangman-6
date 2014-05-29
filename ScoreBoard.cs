@@ -74,14 +74,21 @@
         /// <param name="scoreBoard">Current scoreboard</param>
         public void Save()
         {
-            string scoreFile = "../../Resources/topScores.txt";
-
-            using (StreamWriter scoreWriter = new StreamWriter(scoreFile))
+            try
             {
-                foreach (var score in scoreBoard)
+                string scoreFile = "../../Resources/topScores.txt";
+
+                using (StreamWriter scoreWriter = new StreamWriter(scoreFile))
                 {
-                    scoreWriter.WriteLine("{0},{1}", score.Key, score.Value);
+                    foreach (var score in scoreBoard)
+                    {
+                        scoreWriter.WriteLine("{0},{1}", score.Key, score.Value);
+                    }
                 }
+            }
+            catch (DirectoryNotFoundException)
+            {
+                throw new FileNotFoundException("Unable to find save directory!");
             }
         }
 
