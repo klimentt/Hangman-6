@@ -30,7 +30,7 @@
                 foreach (string score in scores)
                 {
                     scoreTemp = score.Split(',');
-                    scoreBoard.Add(scoreTemp[1], int.Parse(scoreTemp[0]));
+                    scoreBoard.Add(scoreTemp[0], int.Parse(scoreTemp[1]));
                 }
             }
             catch (FileNotFoundException)

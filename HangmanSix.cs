@@ -29,7 +29,7 @@ namespace HangmanSix
             //testboard.AddScore(new Player { Name = "pesho", Score = 4 });
             //testboard.AddScore(new Player { Name = "jennaaaa", Score = 4 });
             //testboard.Save();
-            //testboard.Print(testboard);
+            //testboard.Print();
 
             //
 
