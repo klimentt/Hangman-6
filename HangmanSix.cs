@@ -21,6 +21,13 @@ namespace HangmanSix
             SecretWordManager words = new SecretWordManager();
             words.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
 
+            ScoreBoard testboard = new ScoreBoard();
+
+            testboard.AddScore(new Player { Name = "ivan", Score = 4 });
+            testboard.AddScore(new Player { Name = "pesho", Score = 4 });
+            testboard.AddScore(new Player { Name = "jennaaaa", Score = 4 });
+            testboard.Print(testboard);
+
             int numberOfRevealed = 0; // changed l to numberOfRevealed
             int health = 5; // changed m to health
             RandomUtils randomGenerator = new RandomUtils();

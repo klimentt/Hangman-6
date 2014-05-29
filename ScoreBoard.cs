@@ -9,13 +9,13 @@
     /// </summary>
     public class ScoreBoard
     {
-        private SortedDictionary<int, string> scoreBoard = new SortedDictionary<int, string>();
+        private SortedDictionary<string, int> scoreBoard = new SortedDictionary<string, int>();
         
-        public SortedDictionary<int, string> ScoreBoard
+        public SortedDictionary<string, int> TopScores
         {
             get { return this.scoreBoard; }
         }
-
+  
         /// <summary>
         /// Loads a localy stored scoreboard
         /// </summary>
@@ -28,12 +28,12 @@
             foreach(string score in scores)
             {
                 scoreTemp = score.Split(',');
-                scoreBoard.Add(int.Parse(scoreTemp[0]),scoreTemp[1]);
+                scoreBoard.Add(scoreTemp[1], int.Parse(scoreTemp[0]));
             }
         }
         public void AddScore(Player player)
         {
-            scoreBoard.Add(player.Score, player.Name);
+            scoreBoard.Add(player.Name, player.Score);
         }
 
         /// <summary>
@@ -69,5 +69,19 @@
             }
         }
 
+        public void Print(ScoreBoard scores)
+        {
+            int possition = 1;
+
+            scores.TopFiveScores();
+
+            Console.WriteLine("***** Top Five Scores *****".PadRight(5, ' '));
+
+            foreach (var score in scores.TopScores)
+            {
+                Console.WriteLine("{0}. | {1} | {2}",possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
+                possition++;
+            }
+        }
     }
 }
