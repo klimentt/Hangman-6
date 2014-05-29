@@ -86,6 +86,10 @@
                     }
                 }
             }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException("Unable to save file");
+            }
             catch (DirectoryNotFoundException)
             {
                 throw new FileNotFoundException("Unable to find save directory!");
