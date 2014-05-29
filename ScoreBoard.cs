@@ -36,6 +36,9 @@
             scoreBoard.Add(player.Score, player.Name);
         }
 
+        /// <summary>
+        /// Sorts the existing Scoreboard and Removes all but the top five Players
+        /// </summary>
         private void TopFiveScores()
         {
             scoreBoard.OrderByDescending(key => key.Key);
@@ -48,5 +51,23 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Saves the scoreboard to a file in the game folder
+        /// </summary>
+        /// <param name="scoreBoard">Current scoreboard</param>
+        public void Save(SortedDictionary<int, string> scoreBoard)
+        {
+            string scoreFile = "../../Resources/topScores.txt";
+
+            using (StreamWriter scoreWriter = new StreamWriter(scoreFile))
+            {
+                foreach (var score in scoreBoard)
+                {
+                    scoreWriter.WriteLine("{0},{1}", score.Key, score.Value);
+                }
+            }
+        }
+
     }
 }
