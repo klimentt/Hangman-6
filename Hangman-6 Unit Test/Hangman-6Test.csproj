@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ScoreBoardTest.cs" />
     <Compile Include="SecretWordManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Test Resources\ScoreBoardTest.txt" />
     <Content Include="Test Resources\SecretWordLibraryTest.txt" />
   </ItemGroup>
   <Choose>

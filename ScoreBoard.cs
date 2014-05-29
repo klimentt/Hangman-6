@@ -23,13 +23,29 @@
         public void Load(string sourceFile)
         {
             string[] scoreTemp;
-            string[] scores = File.ReadAllLines(sourceFile);
-            
-            foreach(string score in scores)
+
+            try
             {
-                scoreTemp = score.Split(',');
-                scoreBoard.Add(scoreTemp[1], int.Parse(scoreTemp[0]));
+                string[] scores = File.ReadAllLines(sourceFile);
+                foreach (string score in scores)
+                {
+                    scoreTemp = score.Split(',');
+                    scoreBoard.Add(scoreTemp[1], int.Parse(scoreTemp[0]));
+                }
             }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException("The ScoreBoard File was not found");
+            }
+            catch (FileLoadException)
+            {
+                throw new FileLoadException("Unable to load scoreboard!");
+            }
+            catch (PathTooLongException)
+            {
+                throw new PathTooLongException("The path specified is too long!");
+            }
+
         }
         public void AddScore(Player player)
         {
@@ -69,6 +85,9 @@
             }
         }
 
+        /// <summary>
+        /// Prints the current top 5 scores 
+        /// </summary>
         public void Print()
         {
             int possition = 1;
