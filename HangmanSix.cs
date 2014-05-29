@@ -26,7 +26,8 @@ namespace HangmanSix
             testboard.AddScore(new Player { Name = "ivan", Score = 4 });
             testboard.AddScore(new Player { Name = "pesho", Score = 4 });
             testboard.AddScore(new Player { Name = "jennaaaa", Score = 4 });
-            testboard.Print(testboard);
+            testboard.Save();
+            testboard.Print();
 
             int numberOfRevealed = 0; // changed l to numberOfRevealed
             int health = 5; // changed m to health

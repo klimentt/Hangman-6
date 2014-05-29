@@ -56,7 +56,7 @@
         /// Saves the scoreboard to a file in the game folder
         /// </summary>
         /// <param name="scoreBoard">Current scoreboard</param>
-        public void Save(SortedDictionary<int, string> scoreBoard)
+        public void Save()
         {
             string scoreFile = "../../Resources/topScores.txt";
 
@@ -69,15 +69,15 @@
             }
         }
 
-        public void Print(ScoreBoard scores)
+        public void Print()
         {
             int possition = 1;
 
-            scores.TopFiveScores();
+            this.TopFiveScores();
 
             Console.WriteLine("***** Top Five Scores *****".PadRight(5, ' '));
 
-            foreach (var score in scores.TopScores)
+            foreach (var score in this.TopScores)
             {
                 Console.WriteLine("{0}. | {1} | {2}",possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
                 possition++;
