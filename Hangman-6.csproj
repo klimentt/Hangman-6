@@ -50,6 +50,7 @@
     <Compile Include="HangmanSix.cs" />
     <Compile Include="IExpandable.cs" />
     <Compile Include="IRemovable.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="PlayerWord.cs" />
     <Compile Include="RandomUtils.cs" />
     <Compile Include="ScoreBoard.cs" />

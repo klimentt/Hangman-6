@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Collections.Generic;
     /// <summary>
     /// Keeps data for the top scores
@@ -14,7 +15,11 @@
         {
             get { return this.scoreBoard; }
         }
-        
+
+        /// <summary>
+        /// Loads a localy stored scoreboard
+        /// </summary>
+        /// <param name="sourceFile">Path to the locally stored file</param>
         public void Load(string sourceFile)
         {
             string[] scoreTemp;
@@ -24,6 +29,23 @@
             {
                 scoreTemp = score.Split(',');
                 scoreBoard.Add(int.Parse(scoreTemp[0]),scoreTemp[1]);
+            }
+        }
+        public void AddScore(Player player)
+        {
+            scoreBoard.Add(player.Score, player.Name);
+        }
+
+        private void TopFiveScores()
+        {
+            scoreBoard.OrderByDescending(key => key.Key);
+
+            if(scoreBoard.Count > 5)
+            {
+                for (int i = 4; i < scoreBoard.Count; i++)
+                {
+                    scoreBoard.Remove(scoreBoard.ElementAt(i).Key);
+                }
             }
         }
     }
