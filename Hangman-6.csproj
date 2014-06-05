@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="HangmanSix.cs" />
     <Compile Include="IExpandable.cs" />
     <Compile Include="IRemovable.cs" />

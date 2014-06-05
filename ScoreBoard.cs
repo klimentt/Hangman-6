@@ -20,8 +20,9 @@
         /// Loads a localy stored scoreboard
         /// </summary>
         /// <param name="sourceFile">Path to the locally stored file</param>
-        public void Load(string sourceFile)
+        public void Load()
         {
+            string sourceFile = "../../Resources/topScores.txt";
             string[] scoreTemp;
 
             try
@@ -49,7 +50,23 @@
         }
         public void AddScore(Player player)
         {
-            scoreBoard.Add(player.Name, player.Score);
+            if (scoreBoard.ContainsKey(player.Name))
+            {
+                for (int i = 0; i < scoreBoard.Count; i++)
+                {
+                    if (scoreBoard.ElementAt(i).Key == player.Name)
+                    {
+                        scoreBoard.Remove(player.Name);
+                        scoreBoard.Add(player.Name, player.Score);
+                    }
+                }
+            }
+            else
+            {
+                scoreBoard.Add(player.Name, player.Score);
+            }
+
+            TopFiveScores();
         }
 
         /// <summary>
@@ -57,7 +74,7 @@
         /// </summary>
         private void TopFiveScores()
         {
-            scoreBoard.OrderByDescending(key => key.Key);
+            scoreBoard.OrderByDescending(value => value.Value); // TO CHECK ORDER!!!!
 
             if(scoreBoard.Count > 5)
             {
