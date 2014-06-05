@@ -6,8 +6,13 @@
     /// <summary>
     /// Keeps all possible commands given from player
     /// </summary>
-    public enum CommandManager
+    public class CommandManager
     {
-        Help = "help", EndGame = "exit", TopScore = "top", RestartGame = "restart"
+
+        public static string Help = "help";
+        public static string Top = "top";
+        public static string Exit = "exit";
+        public static string Restart = "restart";
     }
+  
 }

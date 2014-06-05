@@ -18,8 +18,11 @@ namespace HangmanSix
 
         static void Main(string[] args)
         {
+
             SecretWordManager words = new SecretWordManager();
             words.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
+
+            Player newPlayer = new Player();
 
             // THIS IS A TEST SCOREBOARD
 
