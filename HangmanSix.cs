@@ -18,12 +18,12 @@ namespace HangmanSix
 
         static void Main(string[] args)
         {
-            Player newPlayer = new Player();
-            Console.Write("Please enter you name: ");
-            newPlayer.Name = Console.ReadLine();
-            newPlayer.Score = 5;
+            //Player newPlayer = new Player();
+            //Console.Write("Please enter you name: ");
+            //newPlayer.Name = Console.ReadLine();
+            //newPlayer.Score = 5;
 
-            Game newGame = new Game(newPlayer);
+            //Game newGame = new Game(newPlayer);
 
             ScoreBoard scores = new ScoreBoard();
             scores.Load();

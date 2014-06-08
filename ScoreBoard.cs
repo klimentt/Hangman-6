@@ -50,20 +50,20 @@
         }
         public void AddScore(Player player)
         {
-            if (scoreBoard.ContainsKey(player.Name))
+            if (this.TopScores.ContainsKey(player.Name))
             {
                 for (int i = 0; i < scoreBoard.Count; i++)
                 {
-                    if (scoreBoard.ElementAt(i).Key == player.Name)
+                    if (this.TopScores.ElementAt(i).Key == player.Name)
                     {
-                        scoreBoard.Remove(player.Name);
-                        scoreBoard.Add(player.Name, player.Score);
+                        this.TopScores.Remove(player.Name);
+                        this.TopScores.Add(player.Name, player.Score);
                     }
                 }
             }
             else
             {
-                scoreBoard.Add(player.Name, player.Score);
+                this.TopScores.Add(player.Name, player.Score);
             }
 
             TopFiveScores();
@@ -74,13 +74,13 @@
         /// </summary>
         private void TopFiveScores()
         {
-            scoreBoard.OrderByDescending(value => value.Value); // TO CHECK ORDER!!!!
+            this.TopScores.OrderBy(value => value.Value); //TO CHECK SCORES
 
-            if(scoreBoard.Count > 5)
+            if(this.TopScores.Count > 5)
             {
                 for (int i = 4; i < scoreBoard.Count; i++)
                 {
-                    scoreBoard.Remove(scoreBoard.ElementAt(i).Key);
+                    this.TopScores.Remove(this.TopScores.ElementAt(i).Key);
                 }
             }
         }
