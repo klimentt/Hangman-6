@@ -15,6 +15,8 @@
         {
             get { return this.scoreBoard; }
         }
+
+        public string Source { get; set; }
   
         /// <summary>
         /// Loads a localy stored scoreboard
@@ -22,7 +24,7 @@
         /// <param name="sourceFile">Path to the locally stored file</param>
         public void Load()
         {
-            string sourceFile = "../../Resources/topScores.txt";
+            string sourceFile = this.Source;
             string[] scoreTemp;
 
             try
@@ -48,6 +50,7 @@
             }
 
         }
+
         public void AddScore(Player player)
         {
             if (this.TopScores.ContainsKey(player.Name))

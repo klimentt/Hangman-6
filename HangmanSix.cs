@@ -26,6 +26,7 @@ namespace HangmanSix
             //Game newGame = new Game(newPlayer);
 
             ScoreBoard scores = new ScoreBoard();
+            scores.Source = "../../Resources/topScores.txt";
             scores.Load();
             scores.Print();
 

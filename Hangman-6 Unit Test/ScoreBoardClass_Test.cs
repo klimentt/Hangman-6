@@ -21,7 +21,8 @@ namespace Hangman_6
 
             HangmanSix.ScoreBoard actual = new HangmanSix.ScoreBoard();
 
-            actual.Load(@"../../Test Resources/ScoreBoardTest.txt");
+            actual.Source = "../../Test Resources/ScoreBoardTest.txt";
+            actual.Load();
 
 
             Assert.AreEqual(expected.TopScores.ToString(), actual.TopScores.ToString());
@@ -32,8 +33,8 @@ namespace Hangman_6
             public void Loading_Files_Exception()
             {
                 HangmanSix.ScoreBoard testboard = new HangmanSix.ScoreBoard();
-
-                testboard.Load(@"../../Test Resources/ScoreBoardTST.txt");
+                testboard.Source = @"../../Test Resources/ScoreBoardTST.txt";
+                testboard.Load();
             }
 
             [TestMethod]
