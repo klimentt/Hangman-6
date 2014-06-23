@@ -9,9 +9,9 @@
     /// </summary>
     public class ScoreBoard
     {
-        private SortedDictionary<string, int> scoreBoard = new SortedDictionary<string, int>();
+        private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
         
-        public SortedDictionary<string, int> TopScores
+        public Dictionary<string, int> TopScores
         {
             get { return this.scoreBoard; }
         }
@@ -74,7 +74,7 @@
         /// </summary>
         private void TopFiveScores()
         {
-            this.TopScores.OrderBy(value => value.Value); //TO CHECK SCORES
+            OrderScore();
 
             if(this.TopScores.Count > 5)
             {
@@ -128,6 +128,37 @@
             {
                 Console.WriteLine("{0}. | {1} | {2}",possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
                 possition++;
+            }
+        }
+
+        private void OrderScore()
+        {
+            List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
+
+            for (int i = 0; i < this.TopScores.Count; i++)
+            {
+                if (i == 0)
+                { 
+                    scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
+                }
+                else
+                {
+                    if(this.TopScores.ElementAt(i).Value > scores[i-1].Value)
+                    {
+                        scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
+                    }
+                    else
+                    {
+                        scores.Insert(i-1, new KeyValuePair<string,int>(this.TopScores.ElementAt(i).Key,this.TopScores.ElementAt(i).Value));
+                    }
+                }
+            }
+
+            this.TopScores.Clear();
+
+            for (int i = scores.Count - 1; i >= 0; i--)
+            {
+                this.TopScores.Add(scores[i].Key, scores[i].Value);
             }
         }
     }
