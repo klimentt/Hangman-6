@@ -1,0 +1,5 @@
+*.suo
+/bin
+/obj
+/Hangman-6\ Unit\ Test/bin
+/Hangman-6\ Unit\ Test/obj
