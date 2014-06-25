@@ -44,7 +44,7 @@ namespace HangmanSix
             Console.Write("Do you want to play as another player (Y/N) ? ");
             string answer = Console.ReadLine();
 
-            switch (answer)
+            switch (answer.ToUpper())
             { 
                 case "Y":   Player newPlayer = new Player();
                             Console.Write("Please enter you name: ");

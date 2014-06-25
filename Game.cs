@@ -24,6 +24,8 @@ namespace HangmanSix
 
         private void GamePlay(int numberOfRevealed, Player player, string word, string dashWord)
         {
+            Commands playerCommand = new Commands();
+
             while (numberOfRevealed < word.Length && player.Score > 0)
             {
                 string input = " ";
@@ -40,12 +42,25 @@ namespace HangmanSix
 
                     Console.Write("Input a letter:");
                     input = Console.ReadLine();
-                    letter = input[0];
-                    if ((letter >= 'A' && letter <= 'Z') && letter != 0)
+
+                    switch (input.ToLower())
                     {
-                        letter += 32;
+                        case CommandManager.Top: playerCommand.Top(); break;
+                        case CommandManager.Help: dashWord = playerCommand.Help(dashWord, word);
+                                Console.WriteLine("The word to be guessed is:{0}", dashWord);
+                            break;
+                        case CommandManager.Restart: playerCommand.Restart(player); break;
+                        case CommandManager.Exit: playerCommand.Exit(); break;
+                        default:
+                            letter = input[0];
+                            if ((letter >= 'A' && letter <= 'Z') && letter != 0)
+                            {
+                                letter += 32;
+                            }
+                            correctInput = true;
+                        break;
                     }
-                    correctInput = true;
+                    
                 }
 
                 correctInput = false;
