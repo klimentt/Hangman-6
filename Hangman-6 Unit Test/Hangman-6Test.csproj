@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="SecretWordManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScoreBoardClass_Test.cs" />
+    <Compile Include="ScoreBoardClassTest.cs" />
+    <Compile Include="CommandsClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hangman-6.csproj">

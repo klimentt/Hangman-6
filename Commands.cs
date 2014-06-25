@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace HangmanSix
 {
-    class Commands
+    public class Commands
     {
         public string Help(string dashword, string word)
         {

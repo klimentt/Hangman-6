@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Hangman_6
 {
     [TestClass]
-    public class ScoreBoard_Test
+    public class ScoreBoardTest
     {
 
         [TestMethod]
