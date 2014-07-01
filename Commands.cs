@@ -8,18 +8,19 @@ namespace HangmanSix
     {
         public string Help(string dashword, string word)
         {
+            string newWord = dashword;
             for (int characterIndex = 0; characterIndex < dashword.Length; characterIndex++)
             {
-                if (dashword[characterIndex] == '-')
+                if (newWord[characterIndex] == '-')
                 {
-                    dashword = ReplaceLetter(dashword, word, characterIndex);
+                    newWord = ReplaceLetter(newWord, word, characterIndex);
                     break;
                 }
             }
-            return dashword;
+            return newWord;
         }
 
-        public void Top()
+        public void PrintTopScores()
         {
             ScoreBoard scores = new ScoreBoard();
             scores.Source = "../../Resources/topScores.txt";
@@ -29,13 +30,13 @@ namespace HangmanSix
 
         public void Exit()
         {
-            Console.WriteLine("Goodbye \n Thank you for playing?");
-            int milliseconds = 2000;
-            Thread.Sleep(milliseconds);
+            const int PauseInMilliseconds = 2000;
+            Console.WriteLine("Goodbye \n Thank you for playing!");
+            Thread.Sleep(PauseInMilliseconds);
             Environment.Exit(0);
         }
 
-        public void Restart(Player currentPlayer)
+        public void Restart()
         {
             Console.Write("Do you want to play as another player (Y/N) ? ");
             string answer = Console.ReadLine();
@@ -44,7 +45,7 @@ namespace HangmanSix
             {
                 case "Y": HangmanSix.InitializePlayerAndStartGame();
                     break;
-                case "N": Game game = new Game(currentPlayer);
+                case "N": Exit();
                     break;
             }
         }

@@ -1,5 +1,5 @@
 Milena,5
-re,2
+da,2
 Mitko,1
 Iva,2
 Ivan,4

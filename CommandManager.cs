@@ -6,13 +6,12 @@
     /// <summary>
     /// Keeps all possible commands given from player
     /// </summary>
-    public class CommandManager
+    public enum CommandManager
     {
-
-        public const string Help = "help";
-        public const string Top = "top";
-        public const string Exit = "exit";
-        public const string Restart = "restart";
+        Help,
+        Top,
+        Exit,
+        Restart
     }
   
 }

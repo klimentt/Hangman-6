@@ -24,59 +24,63 @@ namespace HangmanSix
 
             RandomUtils randomGenerator = new RandomUtils();
             string word = randomGenerator.RandomizeWord(wordsManager.AllSecretWords);
-            string dashWord = new String('-', word.Length);
+            string hideWord = new String('-', word.Length);
 
-            GamePlay(word, dashWord);
+            GamePlay(word, hideWord);
         }
 
-        private void GamePlay(string word, string dashWord)
+        private void GamePlay(string word, string hideWord)
         {
             Commands playerCommand = new Commands();
 
             while (this.NumberOfRevealed < word.Length && this.Player.Score > 0)
             {
-                string input = " ";
-                bool correctInput = true;
-                Console.WriteLine("The word to be guessed is:{0}", dashWord);
-                int letter = 0;
-
-                while ((letter < 'a' || letter > 'z') && (letter < 'A' || letter > 'Z'))
+                string playerChoise;
+                char firstLetter;
+                Console.WriteLine("The word to be guessed is:{0}", hideWord);
+                while (true)
                 {
-                    if (!correctInput)
+                    Console.Write("Input a letter:");
+                    playerChoise = Console.ReadLine().ToLower();
+                    if (playerChoise != String.Empty)
                     {
+                        firstLetter = playerChoise[0];
+                        if (Char.IsLetter(firstLetter))
+                        {
+                            break;
+                        }
                         Console.WriteLine("You've entered incorrect input!");
                     }
-
-                    Console.Write("Input a letter:");
-                    input = Console.ReadLine();
-
-                    switch (input.ToLower())
-                    {
-                        case CommandManager.Top: playerCommand.Top(); break;
-                        case CommandManager.Help: dashWord = playerCommand.Help(dashWord, word);
-                            Console.WriteLine("The word to be guessed is:{0}", dashWord);
-                            break;
-                        case CommandManager.Restart: playerCommand.Restart(this.Player); break;
-                        case CommandManager.Exit: playerCommand.Exit(); break;
-                        default:
-                            letter = input[0];
-                            if ((letter >= 'A' && letter <= 'Z') && letter != 0)
-                            {
-                                letter += 32;
-                            }
-                            correctInput = true;
-                            break;
-                    }
-
                 }
 
-                correctInput = false;
+                if (playerChoise == CommandManager.Top.ToString().ToLower())
+                {
+                    playerCommand.PrintTopScores();
+                    continue;
+                }
+                if (playerChoise == CommandManager.Help.ToString().ToLower())
+                {
+                    hideWord = playerCommand.Help(hideWord, word);
+                    this.NumberOfRevealed++;
+                    continue;
+                }
+                if (playerChoise == CommandManager.Restart.ToString().ToLower())
+                {
+                    playerCommand.Restart();
+                    continue;
+                }
+                if (playerChoise == CommandManager.Exit.ToString().ToLower())
+                {
+                    playerCommand.Exit();
+                    continue;
+                }
+
                 bool isMatch = false;
 
-                char[] tempArr = dashWord.ToCharArray();
+                char[] tempArr = hideWord.ToCharArray();
                 for (int i = 0; i < word.Length; i++)
                 {
-                    if (letter == word[i])
+                    if (firstLetter == word[i])
                     {
                         tempArr[i] = word[i];
                         isMatch = true;
@@ -85,7 +89,7 @@ namespace HangmanSix
                     }
                 }
 
-                dashWord = new string(tempArr);
+                hideWord = new string(tempArr);
 
                 if (isMatch)
                 {
@@ -94,7 +98,7 @@ namespace HangmanSix
                 else
                 {
                     this.Player.Score--;
-                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your player.Score is now {1}", (char)letter, this.Player.Score);
+                    Console.WriteLine("Sorry there are no unrevealed letters \"{0}\"). Your player.Score is now {1}", firstLetter, this.Player.Score);
                 }
             }
 
@@ -105,17 +109,18 @@ namespace HangmanSix
             else
             {
                 Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word);
-                EndGame();
+                playerCommand.Restart();
             }
         }
 
         private void EndGame()
         {
             ScoreBoard topScores = new ScoreBoard();
-            topScores.Source = @"D:\My Documents\C#\GitHub\Hangman-6\Resources\ScoreBoard.txt";
+            topScores.Source = @"../../Resources/topScores.txt";
             topScores.Load();
             topScores.AddScore(this.Player);
             topScores.Save();
         }
+
     }
 }

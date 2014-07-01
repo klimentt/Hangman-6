@@ -1,5 +1,0 @@
-﻿Milena,5
-Ivan,4
-Stancho,3
-Iva,2
-Mitko,1

@@ -60,8 +60,8 @@
     <Compile Include="Word.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\ScoreBoard.txt" />
     <Content Include="Resources\secretWordsLibrary.txt" />
+    <Content Include="Resources\topScores.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
