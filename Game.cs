@@ -10,11 +10,13 @@ namespace HangmanSix
     {
         private Player Player { get; set; }
         public int NumberOfRevealed { get; set; }
+        public CommandManager playerCommand { get; set; }
 
         public Game(Player player)
         {
             this.Player = player;
             this.NumberOfRevealed = 0;
+            this.playerCommand = new CommandManager();
         }
 
         public void Start()
@@ -31,8 +33,6 @@ namespace HangmanSix
 
         private void GamePlay(string word, string hideWord)
         {
-            Commands playerCommand = new Commands();
-
             while (this.NumberOfRevealed < word.Length && this.Player.Score > 0)
             {
                 string playerChoise;
@@ -53,25 +53,25 @@ namespace HangmanSix
                     }
                 }
 
-                if (playerChoise == CommandManager.Top.ToString().ToLower())
+                if (playerChoise == Command.Top.ToString().ToLower())
                 {
-                    playerCommand.PrintTopScores();
+                    this.playerCommand.PrintTopScores();
                     continue;
                 }
-                if (playerChoise == CommandManager.Help.ToString().ToLower())
+                if (playerChoise == Command.Help.ToString().ToLower())
                 {
-                    hideWord = playerCommand.Help(hideWord, word);
+                    hideWord = this.playerCommand.Help(hideWord, word);
                     this.NumberOfRevealed++;
                     continue;
                 }
-                if (playerChoise == CommandManager.Restart.ToString().ToLower())
+                if (playerChoise == Command.Restart.ToString().ToLower())
                 {
-                    playerCommand.Restart();
+                    this.playerCommand.Restart();
                     continue;
                 }
-                if (playerChoise == CommandManager.Exit.ToString().ToLower())
+                if (playerChoise == Command.Exit.ToString().ToLower())
                 {
-                    playerCommand.Exit();
+                    this.playerCommand.Exit();
                     continue;
                 }
 
@@ -109,17 +109,18 @@ namespace HangmanSix
             else
             {
                 Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word);
-                playerCommand.Restart();
+                GameOver();
             }
         }
 
-        private void EndGame()
+        public void GameOver()
         {
             ScoreBoard topScores = new ScoreBoard();
             topScores.Source = @"../../Resources/topScores.txt";
             topScores.Load();
             topScores.AddScore(this.Player);
             topScores.Save();
+            this.playerCommand.Restart();
         }
 
     }

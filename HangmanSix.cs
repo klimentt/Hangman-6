@@ -46,6 +46,7 @@ namespace HangmanSix
 
             Game newGame = new Game(newPlayer);
             newGame.Start();
+            newGame.GameOver();
         }
 
     }

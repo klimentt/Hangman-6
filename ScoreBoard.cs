@@ -10,14 +10,21 @@
     public class ScoreBoard
     {
         private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
-        
+
         public Dictionary<string, int> TopScores
         {
-            get { return this.scoreBoard; }
+            get
+            {
+                return this.scoreBoard;
+            }
+            private set
+            {
+                this.scoreBoard = value;
+            }
         }
 
         public string Source { get; set; }
-  
+
         /// <summary>
         /// Loads a localy stored scoreboard
         /// </summary>
@@ -69,17 +76,17 @@
                 this.TopScores.Add(player.Name, player.Score);
             }
 
-            TopFiveScores();
+            ExtractTopFiveScores();
         }
 
         /// <summary>
         /// Sorts the existing Scoreboard and Removes all but the top five Players
         /// </summary>
-        private void TopFiveScores()
+        private void ExtractTopFiveScores()
         {
             OrderScore();
 
-            if(this.TopScores.Count > 5)
+            if (this.TopScores.Count > 5)
             {
                 for (int i = 4; i < scoreBoard.Count; i++)
                 {
@@ -123,46 +130,47 @@
         {
             int possition = 1;
 
-            this.TopFiveScores();
+            this.ExtractTopFiveScores();
 
             Console.WriteLine("***** Top Five Scores *****".PadRight(5, ' '));
 
             foreach (var score in this.TopScores)
             {
-                Console.WriteLine("{0}. | {1} | {2}",possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
+                Console.WriteLine("{0}. | {1} | {2}", possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
                 possition++;
             }
         }
 
         private void OrderScore()
         {
-            List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
+            this.TopScores = this.TopScores.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            //List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
 
-            for (int i = 0; i < this.TopScores.Count; i++)
-            {
-                if (i == 0)
-                { 
-                    scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
-                }
-                else
-                {
-                    if(this.TopScores.ElementAt(i).Value > scores[i-1].Value)
-                    {
-                        scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
-                    }
-                    else
-                    {
-                        scores.Insert(i-1, new KeyValuePair<string,int>(this.TopScores.ElementAt(i).Key,this.TopScores.ElementAt(i).Value));
-                    }
-                }
-            }
+            //for (int i = 0; i < this.TopScores.Count; i++)
+            //{
+            //    if (i == 0)
+            //    { 
+            //        scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
+            //    }
+            //    else
+            //    {
+            //        if(this.TopScores.ElementAt(i).Value > scores[i-1].Value)
+            //        {
+            //            scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
+            //        }
+            //        else
+            //        {
+            //            scores.Insert(i-1, new KeyValuePair<string,int>(this.TopScores.ElementAt(i).Key,this.TopScores.ElementAt(i).Value));
+            //        }
+            //    }
+            //}
 
-            this.TopScores.Clear();
+            //this.TopScores.Clear();
 
-            for (int i = scores.Count - 1; i >= 0; i--)
-            {
-                this.TopScores.Add(scores[i].Key, scores[i].Value);
-            }
+            //for (int i = scores.Count - 1; i >= 0; i--)
+            //{
+            //    this.TopScores.Add(scores[i].Key, scores[i].Value);
+            //}
         }
     }
 }

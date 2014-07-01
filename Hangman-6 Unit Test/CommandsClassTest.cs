@@ -10,7 +10,7 @@ namespace Hangman_6Test
         [TestMethod]
         public void HelpCommand_Test_FirstCharacter()
         {
-            Commands testCommands = new Commands();
+            CommandManager testCommands = new CommandManager();
 
             string word = "wordtest";
             string dashWord = "--------";
@@ -24,7 +24,7 @@ namespace Hangman_6Test
         [TestMethod]
         public void HelpCommand_Test_MiddleCharacter()
         {
-            Commands testCommands = new Commands();
+            CommandManager testCommands = new CommandManager();
 
             string word = "wordtest";
             string dashWord = "wor-----";
@@ -38,7 +38,7 @@ namespace Hangman_6Test
         [TestMethod]
         public void HelpCommand_Test_LastCharacter()
         {
-            Commands testCommands = new Commands();
+            CommandManager testCommands = new CommandManager();
 
             string word = "wordtest";
             string dashWord = "wordtes-";

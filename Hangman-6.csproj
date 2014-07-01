@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
     <Compile Include="CommandManager.cs" />
-    <Compile Include="Commands.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HangmanSix.cs" />
     <Compile Include="IExpandable.cs" />
