@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using HangmanSix;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Hangman_6
@@ -11,15 +12,25 @@ namespace Hangman_6
         [TestMethod]
         public void Loading_File_Test()
         {
-            HangmanSix.ScoreBoard expected = new HangmanSix.ScoreBoard();
+            ScoreBoard expected = new ScoreBoard();
+            Player player = Player.Instance;
+            player.Name = "Milena";
+            player.Score = 5;
+            expected.AddScore(player);
+            player.Name = "Ivan";
+            player.Score = 4;
+            expected.AddScore(player);
+            player.Name = "Stancho";
+            player.Score = 3;
+            expected.AddScore(player);
+            player.Name = "Iva";
+            player.Score = 2;
+            expected.AddScore(player);
+            player.Name = "Mitko";
+            player.Score = 1;
+            expected.AddScore(player);
 
-            expected.AddScore(new HangmanSix.Player() { Name = "Milena", Score = 5 });
-            expected.AddScore(new HangmanSix.Player() { Name = "Ivan", Score = 4 });
-            expected.AddScore(new HangmanSix.Player() { Name = "Stancho", Score = 3 });
-            expected.AddScore(new HangmanSix.Player() { Name = "Iva", Score = 2 });
-            expected.AddScore(new HangmanSix.Player() { Name = "Mitko", Score = 1 });
-
-            HangmanSix.ScoreBoard actual = new HangmanSix.ScoreBoard();
+            ScoreBoard actual = new ScoreBoard();
 
             actual.Source = "../../Test Resources/ScoreBoardTest.txt";
             actual.Load();
@@ -28,28 +39,34 @@ namespace Hangman_6
             Assert.AreEqual(expected.TopScores.ToString(), actual.TopScores.ToString());
         }
 
-            [TestMethod]
-            [ExpectedException(typeof(FileNotFoundException))]
-            public void Loading_Files_Exception()
-            {
-                HangmanSix.ScoreBoard testboard = new HangmanSix.ScoreBoard();
-                testboard.Source = @"../../Test Resources/ScoreBoardTST.txt";
-                testboard.Load();
-            }
+        [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void Loading_Files_Exception()
+        {
+            ScoreBoard testboard = new ScoreBoard();
+            testboard.Source = @"../../Test Resources/ScoreBoardTST.txt";
+            testboard.Load();
+        }
 
-            [TestMethod]
-            [ExpectedException(typeof(FileNotFoundException))]
-            public void Savong_File_Exception()
-            {
-                HangmanSix.ScoreBoard testboard = new HangmanSix.ScoreBoard();
+        [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void Savong_File_Exception()
+        {
+            ScoreBoard testboard = new ScoreBoard();
+            Player player = Player.Instance;
+            player.Name = "Milena";
+            player.Score = 5;
+            testboard.AddScore(player);
+            player.Name = "Ivan";
+            player.Score = 4;
+            testboard.AddScore(player);
+            player.Name = "Stancho";
+            player.Score = 3;
+            testboard.AddScore(player);
 
-                testboard.AddScore(new HangmanSix.Player() { Name = "Milena", Score = 5 });
-                testboard.AddScore(new HangmanSix.Player() { Name = "Ivan", Score = 4 });
-                testboard.AddScore(new HangmanSix.Player() { Name = "Stancho", Score = 3 });
-
-                testboard.Save();
-            }
+            testboard.Save();
         }
     }
+}
 
 

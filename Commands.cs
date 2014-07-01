@@ -10,11 +10,7 @@ namespace HangmanSix
         {
             for (int characterIndex = 0; characterIndex < dashword.Length; characterIndex++)
             {
-                if (dashword[characterIndex] != '-')
-                {
-                    continue;
-                }
-                else
+                if (dashword[characterIndex] == '-')
                 {
                     dashword = ReplaceLetter(dashword, word, characterIndex);
                     break;
@@ -45,12 +41,8 @@ namespace HangmanSix
             string answer = Console.ReadLine();
 
             switch (answer.ToUpper())
-            { 
-                case "Y":   Player newPlayer = new Player();
-                            Console.Write("Please enter you name: ");
-                            newPlayer.Name = Console.ReadLine();
-                            newPlayer.Score = 5;
-                            Game newGame = new Game(newPlayer);
+            {
+                case "Y": HangmanSix.InitializePlayerAndStartGame();
                     break;
                 case "N": Game game = new Game(currentPlayer);
                     break;

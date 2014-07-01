@@ -2,16 +2,20 @@
 
 namespace HangmanSix
 {
-    public class Player
+    public sealed class Player
     {
-        public Player()
-        { 
+        private Player()
+        {
         }
 
-        public Player(string name, int score)
+        public static readonly Player instance = new Player();
+
+        public static Player Instance
         {
-            this.Name = name;
-            this.Score = score;
+            get
+            {
+                return instance;
+            }
         }
 
         public string Name { get; set; }
