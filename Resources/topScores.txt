@@ -1,5 +1,5 @@
 Milena,5
 Drago,5
 Ivan,4
-Drag,3
+Hop,4
 da,2

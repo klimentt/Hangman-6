@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
+    /// <summary>
+    /// Return exactly one instance using Singleton design pattern
+    /// </summary>
     public sealed class Player
     {
         private Player()

@@ -6,24 +6,9 @@ namespace HangmanSix
     /// </summary>
     class HangmanSix
     {
-        // hahaha, izpih edno kilo rakiya vcera i poznavam veche vsichki dumi4ki ot pyrvi puyt, muahahahahahahaaaaaaaa
-
-        // test plmb123
-
-        // test plmb123 .gitignore in project folder
-
-        // test Dr4g0
-
-
         static void Main(string[] args)
         {
             InitializePlayerAndStartGame();
-
-            //ScoreBoard scores = new ScoreBoard();
-            //scores.Source = "../../Resources/topScores.txt";
-            //scores.Load();
-            //scores.Print();
-
         }
 
         public static void InitializePlayerAndStartGame()
@@ -46,8 +31,6 @@ namespace HangmanSix
 
             Game newGame = new Game(newPlayer);
             newGame.Start();
-            newGame.GameOver();
         }
-
     }
 }

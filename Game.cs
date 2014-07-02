@@ -25,19 +25,19 @@ namespace HangmanSix
             wordsManager.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
 
             RandomUtils randomGenerator = new RandomUtils();
-            string word = randomGenerator.RandomizeWord(wordsManager.AllSecretWords);
-            string hideWord = new String('-', word.Length);
+            ProxyWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(wordsManager.AllSecretWords));
+            //string hideWord = new String('-', secretWord.Length);
 
-            GamePlay(word, hideWord);
+            GamePlay(secretWord);
         }
 
-        private void GamePlay(string word, string hideWord)
+        private void GamePlay(ProxyWord word)
         {
-            while (this.NumberOfRevealed < word.Length && this.Player.Score > 0)
+            while (this.NumberOfRevealed < word.Content.Length && this.Player.Score > 0)
             {
                 string playerChoise;
                 char firstLetter;
-                Console.WriteLine("The word to be guessed is:{0}", hideWord);
+                Console.WriteLine("The word to be guessed is:{0}", word.Print());
                 while (true)
                 {
                     Console.Write("Input a letter:");
@@ -60,7 +60,7 @@ namespace HangmanSix
                 }
                 if (playerChoise == Command.Help.ToString().ToLower())
                 {
-                    hideWord = this.playerCommand.Help(hideWord, word);
+                    word.PrintView = this.playerCommand.Help(word.PrintView, word.Content);
                     this.NumberOfRevealed++;
                     continue;
                 }
@@ -77,19 +77,19 @@ namespace HangmanSix
 
                 bool isMatch = false;
 
-                char[] tempArr = hideWord.ToCharArray();
-                for (int i = 0; i < word.Length; i++)
+                char[] tempArr = word.PrintView.ToCharArray();
+                for (int i = 0; i < word.Content.Length; i++)
                 {
-                    if (firstLetter == word[i])
+                    if (firstLetter == word.Content[i])
                     {
-                        tempArr[i] = word[i];
+                        tempArr[i] = word.Content[i];
                         isMatch = true;
-
+                        word.RevealedCharacters[i] = true;
                         this.NumberOfRevealed++;
                     }
                 }
 
-                hideWord = new string(tempArr);
+                word.PrintView = new string(tempArr);
 
                 if (isMatch)
                 {
@@ -108,7 +108,7 @@ namespace HangmanSix
             }
             else
             {
-                Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word);
+                Console.WriteLine("You guessed the word \"{0}\" and you won. Congratulations!", word.Content);
                 GameOver();
             }
         }

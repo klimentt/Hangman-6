@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Threading;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
+    using System;
+    using System.Text;
+    using System.Threading;
+
     public class CommandManager
     {
         public string Help(string dashword, string word)
