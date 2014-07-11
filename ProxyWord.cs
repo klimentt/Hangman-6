@@ -9,8 +9,8 @@ namespace HangmanSix
     class ProxyWord : Word
     {
         private IWord RealWord { get; set; }
-        public bool[] RevealedCharacters { get; set; }
-        private int WordLength { get; set; }
+        //public bool[] RevealedCharacters { get; set; }
+        //private int WordLength { get; set; }
         public override string PrintView { get; set; }
 
         public ProxyWord(string word)

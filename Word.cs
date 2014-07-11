@@ -29,6 +29,10 @@
             this.Content = word;
         }
 
+        public bool[] RevealedCharacters { get; set; }
+
+        public int WordLength { get; set; }
+
         public abstract string Print();
 
         private bool IsLettersOnly(string str)

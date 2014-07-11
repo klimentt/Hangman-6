@@ -25,13 +25,13 @@ namespace HangmanSix
             wordsManager.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
 
             RandomUtils randomGenerator = new RandomUtils();
-            ProxyWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(wordsManager.AllSecretWords));
+            IWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(wordsManager.AllSecretWords));
             //string hideWord = new String('-', secretWord.Length);
 
             GamePlay(secretWord);
         }
 
-        private void GamePlay(ProxyWord word)
+        private void GamePlay(IWord word)
         {
             while (this.NumberOfRevealed < word.Content.Length && this.Player.Score > 0)
             {
