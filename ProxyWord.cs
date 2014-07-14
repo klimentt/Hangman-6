@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+
     class ProxyWord : Word
     {
         private IWord RealWord { get; set; }
-        //public bool[] RevealedCharacters { get; set; }
-        //private int WordLength { get; set; }
         public override string PrintView { get; set; }
+        private const char UnrevealedLetterChar = '-';
 
         public ProxyWord(string word)
             : base(word)
@@ -19,7 +16,7 @@ namespace HangmanSix
             this.RealWord = new RealWord(word);
             this.WordLength = this.Content.Length;
             this.RevealedCharacters = new bool[this.WordLength];
-            this.PrintView = new String('-', this.WordLength);
+            this.PrintView = new String(UnrevealedLetterChar, this.WordLength);
         }
 
         public override string Print()
@@ -43,7 +40,7 @@ namespace HangmanSix
                 }
                 else
                 {
-                    printView.Append("-");
+                    printView.Append(UnrevealedLetterChar);
                 }
             }
             this.PrintView = printView.ToString();

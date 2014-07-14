@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HangmanSix;
 
-namespace Hangman_6Test
+namespace HangmanSixTest
 {
     [TestClass]
     public class CommandsClassTest

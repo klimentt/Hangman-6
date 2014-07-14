@@ -6,13 +6,21 @@
 
     public class CommandManager
     {
+        public bool HasHelpUsed { get; set; }
+
+        public CommandManager()
+        {
+            this.HasHelpUsed = false;
+        }
+
         public string Help(string dashword, string word)
         {
             string newWord = dashword;
             for (int characterIndex = 0; characterIndex < dashword.Length; characterIndex++)
             {
-                if (newWord[characterIndex] == '-')
+                if (!Char.IsLetter(newWord[characterIndex]))
                 {
+                    Console.WriteLine("OK, I reveal for you the next letter '{0}'", word[characterIndex]);
                     newWord = ReplaceLetter(newWord, word, characterIndex);
                     break;
                 }
@@ -44,7 +52,7 @@
             switch (answer.ToUpper())
             {
                 case "Y":
-                    HangmanSix.InitializePlayerAndStartGame();
+                    HangmanSix.Main();
                     break;
                 case "N": Exit();
                     return;

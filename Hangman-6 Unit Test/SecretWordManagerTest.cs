@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Hangman_6
+namespace HangmanSixTest
 {
     [TestClass]
     public class SecretWordManager_Test

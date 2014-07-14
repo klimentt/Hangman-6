@@ -2,10 +2,10 @@
 {
     using System;
 
-    public abstract class Word : IWord //may be this class is unnecessary
+    public class Word : IWord //may be this class is unnecessary
     {
         private string content;
-        public abstract string PrintView { get; set; }
+        public virtual string PrintView { get; set; }
 
         public string Content
         {
@@ -33,7 +33,10 @@
 
         public int WordLength { get; set; }
 
-        public abstract string Print();
+        public virtual string Print()
+        {
+            return this.Content;
+        }
 
         private bool IsLettersOnly(string str)
         {

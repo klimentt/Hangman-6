@@ -136,14 +136,14 @@
 
             foreach (var score in this.TopScores)
             {
-                Console.WriteLine("{0}. | {1} | {2}", possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
+                Console.WriteLine("{0}.  {1} --> {2} mistakes", possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
                 possition++;
             }
         }
 
         private void OrderScore()
         {
-            this.TopScores = this.TopScores.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            this.TopScores = this.TopScores.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
             //List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
 
             //for (int i = 0; i < this.TopScores.Count; i++)

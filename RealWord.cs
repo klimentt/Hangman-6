@@ -24,10 +24,5 @@ namespace HangmanSix
                 
             }
         }
-
-        public override string Print()
-        {
-            return this.Content;
-        }
     }
 }

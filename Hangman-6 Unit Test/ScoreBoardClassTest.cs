@@ -3,7 +3,7 @@ using System.IO;
 using HangmanSix;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Hangman_6
+namespace HangmanSixTest
 {
     [TestClass]
     public class ScoreBoardTest
@@ -50,7 +50,7 @@ namespace Hangman_6
 
         [TestMethod]
         [ExpectedException(typeof(FileNotFoundException))]
-        public void Savong_File_Exception()
+        public void Saving_File_Exception()
         {
             ScoreBoard testboard = new ScoreBoard();
             Player player = Player.Instance;
