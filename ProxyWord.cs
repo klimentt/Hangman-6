@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Text;
 
-    class ProxyWord : Word
+    public class ProxyWord : Word
     {
         private IWord RealWord { get; set; }
         public override string PrintView { get; set; }

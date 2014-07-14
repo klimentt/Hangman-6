@@ -19,10 +19,7 @@ namespace HangmanSix
             {
                 return this.Content;
             }
-            set
-            {
-                
-            }
+            set { }
         }
     }
 }
