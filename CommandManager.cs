@@ -13,15 +13,16 @@
             this.HasHelpUsed = false;
         }
 
-        public string Help(string dashword, string word)
+        public string Help(IWord word)
         {
-            string newWord = dashword;
-            for (int characterIndex = 0; characterIndex < dashword.Length; characterIndex++)
+            string newWord = word.PrintView;
+            for (int characterIndex = 0; characterIndex < newWord.Length; characterIndex++)
             {
                 if (!Char.IsLetter(newWord[characterIndex]))
                 {
-                    Console.WriteLine("OK, I reveal for you the next letter '{0}'", word[characterIndex]);
-                    newWord = ReplaceLetter(newWord, word, characterIndex);
+                    Console.WriteLine("OK, I reveal for you the next letter '{0}'", word.Content[characterIndex]);
+                    newWord = ReplaceLetter(newWord, word.Content, characterIndex);
+                    word.RevealedCharacters[characterIndex] = true;
                     break;
                 }
             }
@@ -38,7 +39,7 @@
 
         public void Exit()
         {
-            const int PauseInMilliseconds = 2000;
+            const int PauseInMilliseconds = 1000;
             Console.WriteLine("Good bye!");
             Thread.Sleep(PauseInMilliseconds);
             Environment.Exit(0);

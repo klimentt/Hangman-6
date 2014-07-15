@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace HangmanSix
 {
@@ -9,21 +10,24 @@ namespace HangmanSix
         private Player Player { get; set; }
         public int NumberOfRevealedLetters { get; set; }
         public CommandManager PlayerCommand { get; set; }
-        const int InitialPlayerScore = 0;
-        const int MaxPlayerAttempts = 10;
+        public ChoiceStrategy ChoiceStrategy { get; set; }
+        private const int InitialPlayerScore = 0;
+        private const int InitialRevealedLetters = 0;
+        private const int MaxPlayerAttempts = 10;
+        private const string PathToSecretWordsDatabase = @"../../Resources/secretWordsLibrary.txt";
 
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.NumberOfRevealedLetters = 0;
             this.PlayerCommand = new CommandManager();
+            this.ChoiceStrategy = new ChoiceRandom();
         }
 
         public void Initialize()
         {
             Console.Clear();
             this.Player.AttemptsToGuess = InitialPlayerScore;
-            this.NumberOfRevealedLetters = 0;
+            this.NumberOfRevealedLetters = InitialRevealedLetters;
             this.PlayerCommand.HasHelpUsed = false;
             this.Start();
         }
@@ -31,13 +35,18 @@ namespace HangmanSix
         private void Start()
         {
             SecretWordManager wordsManager = new SecretWordManager();
-            wordsManager.LoadAllSecretWords(@"../../Resources/secretWordsLibrary.txt");
+            wordsManager.LoadAllSecretWords(PathToSecretWordsDatabase);
 
-            RandomUtils randomGenerator = new RandomUtils();
-            var allWords = wordsManager.GetAllSecretWords();
-            IWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(allWords));
+            List<string> allWords = wordsManager.GetAllSecretWords();
+            IWord secretWord = new ProxyWord(ChoiceWord(this.ChoiceStrategy, allWords));
             this.Welcome();
             this.GamePlay(secretWord);
+        }
+
+        private string ChoiceWord(ChoiceStrategy choiceStrategy, List<string> words)
+        {
+            string chosenSecretWord = choiceStrategy.Choice(words);
+            return chosenSecretWord;
         }
 
         private void Welcome()
@@ -65,25 +74,36 @@ namespace HangmanSix
             {
                 Console.Write("Enter your guess or command:");
                 string playerChoise = Console.ReadLine().ToLower();
-                if (playerChoise != String.Empty)
+                if (playerChoise == String.Empty)
                 {
-                    if (playerChoise.Length > 1)
+                    continue;
+                }
+                playerLetter = playerChoise.ToLower()[0];
+                if (playerChoise.Length > 1)
+                {
+                    if (!CheckCommand(playerChoise, word))
                     {
-                        if (!CheckCommand(playerChoise, word))
-                        {
-                            Console.WriteLine("Incorrect guess or command!");
-                            continue;
-                        }
+                        Console.WriteLine("Incorrect guess or command!");
                     }
-                    playerLetter = playerChoise.ToLower()[0];
-                    if (Char.IsLetter(playerLetter))
+                    if (this.NumberOfRevealedLetters == word.WordLength)
                     {
                         break;
                     }
-                    Console.WriteLine("You've entered incorrect input!");
+                }
+                else
+                {
+                    if (Char.IsLetter(playerLetter))
+                    {
+                        CheckLetterAccordance(word, playerLetter);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrect guess or command!");
+                    }
+                    break;
                 }
             }
-            CheckLetterAccordance(word, playerLetter);
+
         }
 
         private bool CheckCommand(string playerChoise, IWord word)
@@ -93,18 +113,25 @@ namespace HangmanSix
                 this.PlayerCommand.PrintTopScores();
                 return true;
             }
+
             if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
             {
-                word.PrintView = this.PlayerCommand.Help(word.PrintView, word.Content);
+                word.PrintView = this.PlayerCommand.Help(word);
                 this.NumberOfRevealedLetters++;
                 this.PlayerCommand.HasHelpUsed = true;
+                if (this.NumberOfRevealedLetters < word.WordLength)
+                {
+                    Console.WriteLine("The secret word is:{0}", word.PrintView);
+                }
                 return true;
             }
+
             if (playerChoise.ToLower() == Command.Restart.ToString().ToLower())
             {
                 this.PlayerCommand.Restart();
                 return true;
             }
+
             if (playerChoise.ToLower() == Command.Exit.ToString().ToLower())
             {
                 this.PlayerCommand.Exit();
@@ -118,7 +145,7 @@ namespace HangmanSix
             bool isMatch = false;
             bool isRevealed = false;
 
-            char[] tempArr = word.PrintView.ToCharArray();
+            char[] wordAsChars = word.PrintView.ToCharArray();
             for (int i = 0; i < word.WordLength; i++)
             {
                 if (playerLetter == word.Content[i])
@@ -128,14 +155,14 @@ namespace HangmanSix
                         isRevealed = true;
                         continue;
                     }
-                    tempArr[i] = word.Content[i];
+                    wordAsChars[i] = word.Content[i];
                     isMatch = true;
                     word.RevealedCharacters[i] = true;
                     this.NumberOfRevealedLetters++;
                 }
             }
 
-            word.PrintView = new string(tempArr);
+            word.PrintView = new string(wordAsChars);
 
             if (isMatch)
             {
@@ -179,8 +206,10 @@ namespace HangmanSix
 
         private void UpdateAndPrintScoreBoard()
         {
+            const string topScoresDataPath = @"../../Resources/topScores.txt";
+
             ScoreBoard topScores = new ScoreBoard();
-            topScores.Source = @"../../Resources/topScores.txt";
+            topScores.Source = topScoresDataPath;
             topScores.Load();
             if (this.Player.AttemptsToGuess < topScores.TopScores.Values.Last())
             {

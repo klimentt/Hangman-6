@@ -2,4 +2,4 @@ lo,0
 dimi,0
 a,1
 mimi,1
-da,2
+soko,1

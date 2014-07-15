@@ -12,11 +12,11 @@ namespace HangmanSixTest
         {
             CommandManager testCommands = new CommandManager();
 
-            string word = "wordtest";
-            string dashWord = "--------";
+            IWord word = new ProxyWord("wordtest");
+            word.PrintView = "--------";
 
             string expectedResult = "w-------";
-            string result = testCommands.Help(dashWord, word);
+            string result = testCommands.Help(word);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -26,11 +26,10 @@ namespace HangmanSixTest
         {
             CommandManager testCommands = new CommandManager();
 
-            string word = "wordtest";
-            string dashWord = "wor-----";
-
+            IWord word = new ProxyWord("wordtest");
+            word.PrintView = "wor-----";
             string expectedResult = "word----";
-            string result = testCommands.Help(dashWord, word);
+            string result = testCommands.Help(word);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -40,11 +39,11 @@ namespace HangmanSixTest
         {
             CommandManager testCommands = new CommandManager();
 
-            string word = "wordtest";
-            string dashWord = "wordtes-";
+            IWord word = new ProxyWord("wordtest");
+            word.PrintView = "wordtes-";
 
             string expectedResult = "wordtest";
-            string result = testCommands.Help(dashWord, word);
+            string result = testCommands.Help(word);
 
             Assert.AreEqual(expectedResult, result);
         }
