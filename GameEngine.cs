@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class GameEngine
     {
-        private Player Player { get; set; }
-        public int NumberOfRevealedLetters { get; set; }
-        public CommandManager PlayerCommand { get; set; }
-        public ChoiceStrategy ChoiceStrategy { get; set; }
         private const int InitialPlayerScore = 0;
         private const int InitialRevealedLetters = 0;
         private const int MaxPlayerAttempts = 10;
@@ -22,6 +17,14 @@ namespace HangmanSix
             this.PlayerCommand = new CommandManager();
             this.ChoiceStrategy = new ChoiceRandom();
         }
+
+        public int NumberOfRevealedLetters { get; set; }
+
+        public CommandManager PlayerCommand { get; set; }
+
+        public ChoiceStrategy ChoiceStrategy { get; set; }
+
+        private Player Player { get; set; }
 
         public void Initialize()
         {
@@ -38,7 +41,7 @@ namespace HangmanSix
             wordsManager.LoadAllSecretWords(PathToSecretWordsDatabase);
 
             List<string> allWords = wordsManager.GetAllSecretWords();
-            IWord secretWord = new ProxyWord(ChoiceWord(this.ChoiceStrategy, allWords));
+            IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));
             UIMessages.WelcomeMessage(MaxPlayerAttempts);
             this.GamePlay(secretWord);
         }
@@ -54,30 +57,31 @@ namespace HangmanSix
             while (this.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
                 UIMessages.SecretWordMessage(word.PrintView, false);
-                InputData(word);
+                this.InputData(word);
             }
-            GameOver(word);
+
+            this.GameOver(word);
         }
 
         private void InputData(IWord word)
         {
-            char playerLetter;
             while (true)
             {
                 UIMessages.InviteForGuessOrCommandMessage();
                 string playerChoise = Console.ReadLine().ToLower();
-                if (playerChoise == String.Empty)
+                if (playerChoise == string.Empty)
                 {
                     continue;
                 }
 
-                playerLetter = playerChoise.ToLower()[0];
+                char playerLetter = playerChoise.ToLower()[0];
                 if (playerChoise.Length > 1)
                 {
-                    if (!CheckCommand(playerChoise, word))
+                    if (!this.CheckCommand(playerChoise, word))
                     {
                         UIMessages.IncorrectInputMessage();
                     }
+
                     if (this.NumberOfRevealedLetters == word.WordLength)
                     {
                         break;
@@ -85,18 +89,18 @@ namespace HangmanSix
                 }
                 else
                 {
-                    if (Char.IsLetter(playerLetter))
+                    if (char.IsLetter(playerLetter))
                     {
-                        CheckLetterAccordance(word, playerLetter);
+                        this.CheckLetterAccordance(word, playerLetter);
                     }
                     else
                     {
                         UIMessages.IncorrectInputMessage();
                     }
+
                     break;
                 }
             }
-
         }
 
         private bool CheckCommand(string playerChoise, IWord word)
@@ -116,6 +120,7 @@ namespace HangmanSix
                 {
                     UIMessages.SecretWordMessage(word.PrintView, false);
                 }
+
                 return true;
             }
 
@@ -130,6 +135,7 @@ namespace HangmanSix
                 this.PlayerCommand.Exit();
                 return true;
             }
+
             return false;
         }
 
@@ -146,8 +152,9 @@ namespace HangmanSix
                     if (word.RevealedCharacters[i])
                     {
                         isRevealed = true;
-                        continue;
+                        break;
                     }
+
                     wordAsChars[i] = word.Content[i];
                     isMatch = true;
                     word.RevealedCharacters[i] = true;
@@ -172,7 +179,7 @@ namespace HangmanSix
             }
         }
 
-        public void GameOver(IWord word)
+        private void GameOver(IWord word)
         {
             if (this.Player.AttemptsToGuess == MaxPlayerAttempts)
             {
@@ -187,11 +194,12 @@ namespace HangmanSix
                 }
                 else
                 {
-                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess,false);
-                    UIMessages.SecretWordMessage(word.Content,true);
-                    UpdateAndPrintScoreBoard();
+                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, false);
+                    UIMessages.SecretWordMessage(word.Content, true);
+                    this.UpdateAndPrintScoreBoard();
                 }
             }
+
             UIMessages.PressAnyKeyMessage();
             Console.ReadKey();
             this.Initialize();
@@ -199,10 +207,10 @@ namespace HangmanSix
 
         private void UpdateAndPrintScoreBoard()
         {
-            const string topScoresDataPath = @"../../Resources/topScores.txt";
+            const string TopScoresDataPath = @"../../Resources/topScores.txt";
 
             ScoreBoard topScores = new ScoreBoard();
-            topScores.Source = topScoresDataPath;
+            topScores.Source = TopScoresDataPath;
             topScores.Load();
             if (this.Player.AttemptsToGuess < topScores.TopScores.Values.Last())
             {
@@ -210,7 +218,7 @@ namespace HangmanSix
                 {
                     UIMessages.EnterPlayerNameMessage();
                     this.Player.Name = Console.ReadLine();
-                    if (this.Player.Name != String.Empty)
+                    if (this.Player.Name != string.Empty)
                     {
                         break;
                     }
@@ -219,6 +227,7 @@ namespace HangmanSix
                 topScores.AddScore(this.Player);
                 topScores.Save();
             }
+
             topScores.Print();
         }
     }

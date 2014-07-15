@@ -6,19 +6,19 @@
 
     public class CommandManager
     {
-        public bool HasHelpUsed { get; set; }
-
         public CommandManager()
         {
             this.HasHelpUsed = false;
         }
+
+        public bool HasHelpUsed { get; set; }
 
         public string Help(IWord word)
         {
             string newWord = word.PrintView;
             for (int characterIndex = 0; characterIndex < newWord.Length; characterIndex++)
             {
-                if (!Char.IsLetter(newWord[characterIndex]))
+                if (!char.IsLetter(newWord[characterIndex]))
                 {
                     UIMessages.RevealingNextLetterMessage(word.Content[characterIndex]);
                     newWord = ReplaceLetter(newWord, word.Content, characterIndex);
@@ -26,6 +26,7 @@
                     break;
                 }
             }
+
             return newWord;
         }
 
@@ -66,6 +67,7 @@
                 {
                     newWord.Append(word[currentPossition]);
                 }
+
                 currentPossition++;
             }
 

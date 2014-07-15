@@ -1,6 +1,5 @@
 namespace HangmanSix
 {
-    using System;
     /// <summary>
     /// Main engine class
     /// </summary>

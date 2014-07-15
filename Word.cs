@@ -2,31 +2,38 @@
 {
     using System;
 
-    public class Word : IWord //may be this class is unnecessary
+    public class Word : IWord
     {
         private string content;
+
+        protected Word(string word)
+        {
+            this.Content = word;
+        }
+
         public virtual string PrintView { get; set; }
 
         public string Content
         {
-            get { return this.content; }
+            get
+            {
+                return this.content;
+            }
+
             set
             {
                 if (value == null)
                 {
                     throw new ArgumentException("The word can not be null");
                 }
-                if (!IsLettersOnly(value)) //check for non-alphabetic symbols
+
+                if (!this.IsLettersOnly(value))
                 {
                     throw new ArgumentException("The word contains non-alphabetic symbols");
                 }
+
                 this.content = value;
             }
-        }
-
-        protected Word(string word)
-        {
-            this.Content = word;
         }
 
         public bool[] RevealedCharacters { get; set; }
@@ -42,8 +49,10 @@
         {
             foreach (char currentChar in str)
             {
-                if (!Char.IsLetter(currentChar))
+                if (!char.IsLetter(currentChar))
+                {
                     return false;
+                }
             }
 
             return true;
