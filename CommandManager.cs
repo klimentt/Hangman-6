@@ -20,7 +20,7 @@
             {
                 if (!Char.IsLetter(newWord[characterIndex]))
                 {
-                    Console.WriteLine("OK, I reveal for you the next letter '{0}'", word.Content[characterIndex]);
+                    UIMessages.RevealingNextLetterMessage(word.Content[characterIndex]);
                     newWord = ReplaceLetter(newWord, word.Content, characterIndex);
                     word.RevealedCharacters[characterIndex] = true;
                     break;
@@ -40,7 +40,7 @@
         public void Exit()
         {
             const int PauseInMilliseconds = 1000;
-            Console.WriteLine("Good bye!");
+            UIMessages.ExitMessage();
             Thread.Sleep(PauseInMilliseconds);
             Environment.Exit(0);
         }

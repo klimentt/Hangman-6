@@ -39,7 +39,7 @@ namespace HangmanSix
 
             List<string> allWords = wordsManager.GetAllSecretWords();
             IWord secretWord = new ProxyWord(ChoiceWord(this.ChoiceStrategy, allWords));
-            this.Welcome();
+            UIMessages.WelcomeMessage(MaxPlayerAttempts);
             this.GamePlay(secretWord);
         }
 
@@ -49,19 +49,11 @@ namespace HangmanSix
             return chosenSecretWord;
         }
 
-        private void Welcome()
-        {
-            Console.WriteLine("Welcome to \"Hangman\" game. Please try to guess my secret word.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat and 'exit' to quit the game.");
-            Console.WriteLine("Maximum attempts to choice the word: {0}\n", MaxPlayerAttempts);
-        }
-
         private void GamePlay(IWord word)
         {
             while (this.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
-                Console.WriteLine("The secret word is:{0}", word.PrintView);
-
+                UIMessages.SecretWordMessage(word.PrintView, false);
                 InputData(word);
             }
             GameOver(word);
@@ -72,18 +64,19 @@ namespace HangmanSix
             char playerLetter;
             while (true)
             {
-                Console.Write("Enter your guess or command:");
+                UIMessages.InviteForGuessOrCommandMessage();
                 string playerChoise = Console.ReadLine().ToLower();
                 if (playerChoise == String.Empty)
                 {
                     continue;
                 }
+
                 playerLetter = playerChoise.ToLower()[0];
                 if (playerChoise.Length > 1)
                 {
                     if (!CheckCommand(playerChoise, word))
                     {
-                        Console.WriteLine("Incorrect guess or command!");
+                        UIMessages.IncorrectInputMessage();
                     }
                     if (this.NumberOfRevealedLetters == word.WordLength)
                     {
@@ -98,7 +91,7 @@ namespace HangmanSix
                     }
                     else
                     {
-                        Console.WriteLine("Incorrect guess or command!");
+                        UIMessages.IncorrectInputMessage();
                     }
                     break;
                 }
@@ -121,7 +114,7 @@ namespace HangmanSix
                 this.PlayerCommand.HasHelpUsed = true;
                 if (this.NumberOfRevealedLetters < word.WordLength)
                 {
-                    Console.WriteLine("The secret word is:{0}", word.PrintView);
+                    UIMessages.SecretWordMessage(word.PrintView, false);
                 }
                 return true;
             }
@@ -166,16 +159,16 @@ namespace HangmanSix
 
             if (isMatch)
             {
-                Console.WriteLine("Good job! You revealed {0} letters. Your mistakes are: {1}", this.NumberOfRevealedLetters, this.Player.AttemptsToGuess);
+                UIMessages.RevealedLetterMessage(this.NumberOfRevealedLetters, this.Player.AttemptsToGuess);
             }
             else if (isRevealed)
             {
-                Console.WriteLine("The letter '{0}' was revealed", playerLetter);
+                UIMessages.RepeatRevealedLetterMessage(playerLetter);
             }
             else
             {
                 this.Player.AttemptsToGuess++;
-                Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\"). Your mistakes are: {1}", playerLetter, this.Player.AttemptsToGuess);
+                UIMessages.NotGuessedLetterMessage(playerLetter, this.Player.AttemptsToGuess);
             }
         }
 
@@ -183,23 +176,23 @@ namespace HangmanSix
         {
             if (this.Player.AttemptsToGuess == MaxPlayerAttempts)
             {
-                Console.WriteLine("You lost the game. Try again.");
+                UIMessages.LostGameMessage();
             }
             else
             {
                 if (this.PlayerCommand.HasHelpUsed)
                 {
-                    Console.WriteLine("You won with {0} mistakes but you have cheated. You are not allowed to enter into the scoreboard", this.Player.AttemptsToGuess);
-                    Console.WriteLine("The secret word is:  {0}", String.Join(" ", word.Content.ToCharArray()));
+                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, true);
+                    UIMessages.SecretWordMessage(word.Content, true);
                 }
                 else
                 {
-                    Console.WriteLine("You won with {0} mistakes", this.Player.AttemptsToGuess);
-                    Console.WriteLine("The secret word is:  {0}", String.Join(" ", word.Content.ToCharArray()));
+                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess,false);
+                    UIMessages.SecretWordMessage(word.Content,true);
                     UpdateAndPrintScoreBoard();
                 }
             }
-            Console.WriteLine("Press any key to start a new game ...");
+            UIMessages.PressAnyKeyMessage();
             Console.ReadKey();
             this.Initialize();
         }
@@ -215,7 +208,7 @@ namespace HangmanSix
             {
                 while (true)
                 {
-                    Console.Write("Please enter you name: ");
+                    UIMessages.EnterPlayerNameMessage();
                     this.Player.Name = Console.ReadLine();
                     if (this.Player.Name != String.Empty)
                     {
