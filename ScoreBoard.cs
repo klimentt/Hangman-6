@@ -60,7 +60,7 @@
 
         public void AddScore(Player player)
         {
-            this.TopScores.Add(player.Name, player.Score);
+            this.TopScores.Add(player.Name, player.AttemptsToGuess);
             ExtractTopFiveScores();
         }
 

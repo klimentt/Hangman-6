@@ -11,11 +11,6 @@
     {
         private List<string> allSecretWords = new List<string>();
 
-        //public List<string> AllSecretWords
-        //{
-        //    get { return this.allSecretWords; }
-        //}
-
         public void LoadAllSecretWords(string path)
         {
             try

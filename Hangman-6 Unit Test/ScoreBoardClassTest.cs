@@ -15,19 +15,19 @@ namespace HangmanSixTest
             ScoreBoard expected = new ScoreBoard();
             Player player = Player.Instance;
             player.Name = "Milena";
-            player.Score = 5;
+            player.AttemptsToGuess = 5;
             expected.AddScore(player);
             player.Name = "Ivan";
-            player.Score = 4;
+            player.AttemptsToGuess = 4;
             expected.AddScore(player);
             player.Name = "Stancho";
-            player.Score = 3;
+            player.AttemptsToGuess = 3;
             expected.AddScore(player);
             player.Name = "Iva";
-            player.Score = 2;
+            player.AttemptsToGuess = 2;
             expected.AddScore(player);
             player.Name = "Mitko";
-            player.Score = 1;
+            player.AttemptsToGuess = 1;
             expected.AddScore(player);
 
             ScoreBoard actual = new ScoreBoard();
@@ -55,13 +55,13 @@ namespace HangmanSixTest
             ScoreBoard testboard = new ScoreBoard();
             Player player = Player.Instance;
             player.Name = "Milena";
-            player.Score = 5;
+            player.AttemptsToGuess = 5;
             testboard.AddScore(player);
             player.Name = "Ivan";
-            player.Score = 4;
+            player.AttemptsToGuess = 4;
             testboard.AddScore(player);
             player.Name = "Stancho";
-            player.Score = 3;
+            player.AttemptsToGuess = 3;
             testboard.AddScore(player);
 
             testboard.Save();

@@ -7,7 +7,7 @@ namespace HangmanSix
     public class GameEngine
     {
         private Player Player { get; set; }
-        public int NumberOfRevealed { get; set; }
+        public int NumberOfRevealedLetters { get; set; }
         public CommandManager PlayerCommand { get; set; }
         const int InitialPlayerScore = 0;
         const int MaxPlayerAttempts = 10;
@@ -15,15 +15,15 @@ namespace HangmanSix
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.NumberOfRevealed = 0;
+            this.NumberOfRevealedLetters = 0;
             this.PlayerCommand = new CommandManager();
         }
 
         public void Initialize()
         {
             Console.Clear();
-            this.Player.Score = InitialPlayerScore;
-            this.NumberOfRevealed = 0;
+            this.Player.AttemptsToGuess = InitialPlayerScore;
+            this.NumberOfRevealedLetters = 0;
             this.PlayerCommand.HasHelpUsed = false;
             this.Start();
         }
@@ -35,7 +35,7 @@ namespace HangmanSix
 
             RandomUtils randomGenerator = new RandomUtils();
             var allWords = wordsManager.GetAllSecretWords();
-            IWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(wordsManager.GetAllSecretWords()));
+            IWord secretWord = new ProxyWord(randomGenerator.RandomizeWord(allWords));
             this.Welcome();
             this.GamePlay(secretWord);
         }
@@ -43,81 +43,47 @@ namespace HangmanSix
         private void Welcome()
         {
             Console.WriteLine("Welcome to \"Hangman\" game. Please try to guess my secret word.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat and 'exit' to quit the game.\n");
+            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat and 'exit' to quit the game.");
+            Console.WriteLine("Maximum attempts to choice the word: {0}\n", MaxPlayerAttempts);
         }
 
         private void GamePlay(IWord word)
         {
-            while (this.NumberOfRevealed < word.Content.Length && this.Player.Score < 10)
+            while (this.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
-                char playerLetter;
                 Console.WriteLine("The secret word is:{0}", word.PrintView);
-                bool isCommand = false;
 
-                while (true)
-                {
-                    Console.Write("Enter your guess or command:");
-                    string playerChoise = Console.ReadLine().ToLower();
-                    if (playerChoise != String.Empty)
-                    {
-                        if (playerChoise.Length > 1)
-                        {
-                            if (!CheckCommand(playerChoise, word))
-                            {
-                                Console.WriteLine("Incorrect guess or command!");
-                                continue;
-                            }
-                            isCommand = true;
-                        }
-                        playerLetter = playerChoise.ToLower()[0];
-                        if (Char.IsLetter(playerLetter))
-                        {
-                            break;
-                        }
-                        Console.WriteLine("You've entered incorrect input!");
-                    }
-                }
-
-                if (!isCommand)
-                {
-                    bool isMatch = false;
-                    bool isRevealed = false;
-
-                    char[] tempArr = word.PrintView.ToCharArray();
-                    for (int i = 0; i < word.WordLength; i++)
-                    {
-                        if (playerLetter == word.Content[i])
-                        {
-                            if (word.RevealedCharacters[i])
-                            {
-                                isRevealed = true;
-                                continue;
-                            }
-                            tempArr[i] = word.Content[i];
-                            isMatch = true;
-                            word.RevealedCharacters[i] = true;
-                            this.NumberOfRevealed++;
-                        }
-                    }
-
-                    word.PrintView = new string(tempArr);
-
-                    if (isMatch)
-                    {
-                        Console.WriteLine("Good job! You revealed {0} letters. Your mistakes are: {1}", this.NumberOfRevealed, this.Player.Score);
-                    }
-                    else if (isRevealed)
-                    {
-                        Console.WriteLine("The letter '{0}' was revealed", playerLetter);
-                    }
-                    else
-                    {
-                        this.Player.Score++;
-                        Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\"). Your mistakes are: {1}", playerLetter, this.Player.Score);
-                    }
-                }
+                InputData(word);
             }
             GameOver(word);
+        }
+
+        private void InputData(IWord word)
+        {
+            char playerLetter;
+            while (true)
+            {
+                Console.Write("Enter your guess or command:");
+                string playerChoise = Console.ReadLine().ToLower();
+                if (playerChoise != String.Empty)
+                {
+                    if (playerChoise.Length > 1)
+                    {
+                        if (!CheckCommand(playerChoise, word))
+                        {
+                            Console.WriteLine("Incorrect guess or command!");
+                            continue;
+                        }
+                    }
+                    playerLetter = playerChoise.ToLower()[0];
+                    if (Char.IsLetter(playerLetter))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("You've entered incorrect input!");
+                }
+            }
+            CheckLetterAccordance(word, playerLetter);
         }
 
         private bool CheckCommand(string playerChoise, IWord word)
@@ -130,7 +96,7 @@ namespace HangmanSix
             if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
             {
                 word.PrintView = this.PlayerCommand.Help(word.PrintView, word.Content);
-                this.NumberOfRevealed++;
+                this.NumberOfRevealedLetters++;
                 this.PlayerCommand.HasHelpUsed = true;
                 return true;
             }
@@ -147,9 +113,48 @@ namespace HangmanSix
             return false;
         }
 
+        private void CheckLetterAccordance(IWord word, char playerLetter)
+        {
+            bool isMatch = false;
+            bool isRevealed = false;
+
+            char[] tempArr = word.PrintView.ToCharArray();
+            for (int i = 0; i < word.WordLength; i++)
+            {
+                if (playerLetter == word.Content[i])
+                {
+                    if (word.RevealedCharacters[i])
+                    {
+                        isRevealed = true;
+                        continue;
+                    }
+                    tempArr[i] = word.Content[i];
+                    isMatch = true;
+                    word.RevealedCharacters[i] = true;
+                    this.NumberOfRevealedLetters++;
+                }
+            }
+
+            word.PrintView = new string(tempArr);
+
+            if (isMatch)
+            {
+                Console.WriteLine("Good job! You revealed {0} letters. Your mistakes are: {1}", this.NumberOfRevealedLetters, this.Player.AttemptsToGuess);
+            }
+            else if (isRevealed)
+            {
+                Console.WriteLine("The letter '{0}' was revealed", playerLetter);
+            }
+            else
+            {
+                this.Player.AttemptsToGuess++;
+                Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\"). Your mistakes are: {1}", playerLetter, this.Player.AttemptsToGuess);
+            }
+        }
+
         public void GameOver(IWord word)
         {
-            if (this.Player.Score == MaxPlayerAttempts)
+            if (this.Player.AttemptsToGuess == MaxPlayerAttempts)
             {
                 Console.WriteLine("You lost the game. Try again.");
             }
@@ -157,12 +162,12 @@ namespace HangmanSix
             {
                 if (this.PlayerCommand.HasHelpUsed)
                 {
-                    Console.WriteLine("You won with {0} mistakes but you have cheated. You are not allowed to enter into the scoreboard", this.Player.Score);
+                    Console.WriteLine("You won with {0} mistakes but you have cheated. You are not allowed to enter into the scoreboard", this.Player.AttemptsToGuess);
                     Console.WriteLine("The secret word is:  {0}", String.Join(" ", word.Content.ToCharArray()));
                 }
                 else
                 {
-                    Console.WriteLine("You won with {0} mistakes", this.Player.Score);
+                    Console.WriteLine("You won with {0} mistakes", this.Player.AttemptsToGuess);
                     Console.WriteLine("The secret word is:  {0}", String.Join(" ", word.Content.ToCharArray()));
                     UpdateAndPrintScoreBoard();
                 }
@@ -177,7 +182,7 @@ namespace HangmanSix
             ScoreBoard topScores = new ScoreBoard();
             topScores.Source = @"../../Resources/topScores.txt";
             topScores.Load();
-            if (this.Player.Score < topScores.TopScores.Values.Last())
+            if (this.Player.AttemptsToGuess < topScores.TopScores.Values.Last())
             {
                 while (true)
                 {
