@@ -9,14 +9,14 @@
     /// </summary>
     public class SecretWordManager : IExpandable, IRemovable
     {
-        private List<string> allSecretWords=new List<string>();
+        private List<string> allSecretWords = new List<string>();
 
-        public List<string> AllSecretWords
-        {
-            get { return this.allSecretWords; }
-        }
+        //public List<string> AllSecretWords
+        //{
+        //    get { return this.allSecretWords; }
+        //}
 
-        public void LoadAllSecretWords(string path) 
+        public void LoadAllSecretWords(string path)
         {
             try
             {
@@ -43,7 +43,12 @@
                 throw new Exception("An Error occured in: " + e.StackTrace);
             }
         }
-        
+
+        public List<string> GetAllSecretWords()
+        {
+            return this.allSecretWords;
+        }
+
         public void Remove(int index)
         {
             allSecretWords.RemoveAt(index);

@@ -39,24 +39,14 @@
         public void Exit()
         {
             const int PauseInMilliseconds = 2000;
-            Console.WriteLine("Goodbye \n Thank you for playing!");
+            Console.WriteLine("Good bye!");
             Thread.Sleep(PauseInMilliseconds);
             Environment.Exit(0);
         }
 
         public void Restart()
         {
-            Console.Write("Do you want to play as another player (Y/N) ? ");
-            string answer = Console.ReadLine();
-
-            switch (answer.ToUpper())
-            {
-                case "Y":
-                    HangmanSix.Main();
-                    break;
-                case "N": Exit();
-                    return;
-            }
+            HangmanSix.Main();
         }
 
         private static string ReplaceLetter(string dashword, string word, int possitionToReplace)

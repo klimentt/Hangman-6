@@ -16,7 +16,7 @@ namespace HangmanSixTest
             HangmanSix.SecretWordManager actual = new HangmanSix.SecretWordManager();
             actual.LoadAllSecretWords(@"../../Test Resources/SecretWordLibraryTest.txt");
 
-            Assert.AreEqual(expected.ToString(), actual.AllSecretWords.ToString());
+            Assert.AreEqual(expected.ToString(), actual.GetAllSecretWords().ToString());
         }
 
         [TestMethod]

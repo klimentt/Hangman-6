@@ -60,22 +60,7 @@
 
         public void AddScore(Player player)
         {
-            if (this.TopScores.ContainsKey(player.Name))
-            {
-                for (int i = 0; i < scoreBoard.Count; i++)
-                {
-                    if (this.TopScores.ElementAt(i).Key == player.Name)
-                    {
-                        this.TopScores.Remove(player.Name);
-                        this.TopScores.Add(player.Name, player.Score);
-                    }
-                }
-            }
-            else
-            {
-                this.TopScores.Add(player.Name, player.Score);
-            }
-
+            this.TopScores.Add(player.Name, player.Score);
             ExtractTopFiveScores();
         }
 
@@ -88,7 +73,7 @@
 
             if (this.TopScores.Count > 5)
             {
-                for (int i = 4; i < scoreBoard.Count; i++)
+                for (int i = 5; i < scoreBoard.Count; i++)
                 {
                     this.TopScores.Remove(this.TopScores.ElementAt(i).Key);
                 }
@@ -130,8 +115,6 @@
         {
             int possition = 1;
 
-            this.ExtractTopFiveScores();
-
             Console.WriteLine("***** Top Five Scores *****".PadRight(5, ' '));
 
             foreach (var score in this.TopScores)
@@ -144,33 +127,6 @@
         private void OrderScore()
         {
             this.TopScores = this.TopScores.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            //List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
-
-            //for (int i = 0; i < this.TopScores.Count; i++)
-            //{
-            //    if (i == 0)
-            //    { 
-            //        scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
-            //    }
-            //    else
-            //    {
-            //        if(this.TopScores.ElementAt(i).Value > scores[i-1].Value)
-            //        {
-            //            scores.Add(new KeyValuePair<string, int>(this.TopScores.ElementAt(i).Key, this.TopScores.ElementAt(i).Value));
-            //        }
-            //        else
-            //        {
-            //            scores.Insert(i-1, new KeyValuePair<string,int>(this.TopScores.ElementAt(i).Key,this.TopScores.ElementAt(i).Value));
-            //        }
-            //    }
-            //}
-
-            //this.TopScores.Clear();
-
-            //for (int i = scores.Count - 1; i >= 0; i--)
-            //{
-            //    this.TopScores.Add(scores[i].Key, scores[i].Value);
-            //}
         }
     }
 }
