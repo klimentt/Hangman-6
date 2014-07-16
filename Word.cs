@@ -1,4 +1,6 @@
-﻿namespace HangmanSix
+﻿using System.Linq;
+
+namespace HangmanSix
 {
     using System;
 
@@ -37,6 +39,19 @@
         }
 
         public bool[] RevealedCharacters { get; set; }
+
+        public int NumberOfRevealedLetters
+        {
+            get
+            {
+                return this.RevealedCharacters.Where(x => x).Count();
+            }
+
+            set
+            {
+                
+            }
+        }
 
         public int WordLength { get; set; }
 

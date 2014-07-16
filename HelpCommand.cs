@@ -28,23 +28,6 @@
             this.Word.PrintView = newWord;
         }
 
-        //public string Help(IWord word)
-        //{
-        //    string newWord = word.PrintView;
-        //    for (int characterIndex = 0; characterIndex < newWord.Length; characterIndex++)
-        //    {
-        //        if (!char.IsLetter(newWord[characterIndex]))
-        //        {
-        //            UIMessages.RevealingNextLetterMessage(word.Content[characterIndex]);
-        //            newWord = ReplaceLetter(newWord, word.Content, characterIndex);
-        //            word.RevealedCharacters[characterIndex] = true;
-        //            break;
-        //        }
-        //    }
-
-        //    return newWord;
-        //}
-
         private static string ReplaceLetter(string dashword, string word, int possitionToReplace)
         {
             int currentPossition = 0;

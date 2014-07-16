@@ -7,28 +7,28 @@
     public class GameEngine
     {
         private const int InitialPlayerScore = 0;
-        private const int InitialRevealedLetters = 0;
         private const int MaxPlayerAttempts = 10;
         private const string PathToSecretWordsDatabase = @"../../Resources/secretWordsLibrary.txt";
 
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.CommandManager = new CommandManager();
+            this.CheckManager = new CheckManager(this.Player);
+            //this.CommandManager = new CommandManager();
             this.ChoiceStrategy = new ChoiceRandom();
         }
 
-        public ICommand HelpCommand { get; set; }
+        //public ICommand HelpCommand { get; set; }
 
-        public ICommand TopCommand { get; set; }
+        //public ICommand TopCommand { get; set; }
 
-        public ICommand RestartCommand { get; set; }
+        //public ICommand RestartCommand { get; set; }
 
-        public ICommand ExitCommand { get; set; }
+        //public ICommand ExitCommand { get; set; }
 
-        public int NumberOfRevealedLetters { get; set; }
+        //public CommandManager CommandManager { get; set; }
 
-        public CommandManager CommandManager { get; set; }
+        public CheckManager CheckManager { get; set; }
 
         public ChoiceStrategy ChoiceStrategy { get; set; }
 
@@ -38,8 +38,7 @@
         {
             Console.Clear();
             this.Player.AttemptsToGuess = InitialPlayerScore;
-            this.NumberOfRevealedLetters = InitialRevealedLetters;
-            this.CommandManager.HasHelpUsed = false;
+            this.CheckManager.HasHelpUsed = false;
             this.Start();
         }
 
@@ -50,17 +49,9 @@
 
             List<string> allWords = wordsManager.GetAllSecretWords();
             IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));
-            DefineCommands(secretWord);
+            this.CheckManager.DefineCommands(secretWord);
             UIMessages.WelcomeMessage(MaxPlayerAttempts);
             this.GamePlay(secretWord);
-        }
-
-        private void DefineCommands(IWord secretWord)
-        {
-            this.HelpCommand = new HelpCommand(secretWord);
-            this.TopCommand = new TopCommand();
-            this.RestartCommand = new RestartCommand();
-            this.ExitCommand = new ExitCommand();
         }
 
         private string ChoiceWord(ChoiceStrategy choiceStrategy, List<string> words)
@@ -71,7 +62,7 @@
 
         private void GamePlay(IWord word)
         {
-            while (this.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
+            while (word.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
                 UIMessages.SecretWordMessage(word.PrintView, false);
                 this.InputData(word);
@@ -94,12 +85,12 @@
                 char playerLetter = playerChoise.ToLower()[0];
                 if (playerChoise.Length > 1)
                 {
-                    if (!this.CheckCommand(playerChoise, word))
+                    if (!this.CheckManager.CheckCommand(playerChoise, word))
                     {
                         UIMessages.IncorrectInputMessage();
                     }
 
-                    if (this.NumberOfRevealedLetters == word.WordLength)
+                    if (word.NumberOfRevealedLetters == word.WordLength)
                     {
                         break;
                     }
@@ -108,7 +99,7 @@
                 {
                     if (char.IsLetter(playerLetter))
                     {
-                        this.CheckLetterAccordance(word, playerLetter);
+                        this.CheckManager.CheckLetterAccordance(word, playerLetter);
                     }
                     else
                     {
@@ -120,82 +111,6 @@
             }
         }
 
-        private bool CheckCommand(string playerChoise, IWord word)
-        {
-            if (playerChoise.ToLower() == Command.Top.ToString().ToLower())
-            {
-                this.CommandManager.Proceed(this.TopCommand);
-                return true;
-            }
-
-            if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
-            {
-                this.CommandManager.Proceed(this.HelpCommand);
-                this.NumberOfRevealedLetters++;
-                this.CommandManager.HasHelpUsed = true;
-                if (this.NumberOfRevealedLetters < word.WordLength)
-                {
-                    UIMessages.SecretWordMessage(word.PrintView, false);
-                }
-
-                return true;
-            }
-
-            if (playerChoise.ToLower() == Command.Restart.ToString().ToLower())
-            {
-                this.CommandManager.Proceed(this.RestartCommand);
-                return true;
-            }
-
-            if (playerChoise.ToLower() == Command.Exit.ToString().ToLower())
-            {
-                this.CommandManager.Proceed(this.ExitCommand);
-                return true;
-            }
-
-            return false;
-        }
-
-        private void CheckLetterAccordance(IWord word, char playerLetter)
-        {
-            bool isMatch = false;
-            bool isRevealed = false;
-
-            char[] wordAsChars = word.PrintView.ToCharArray();
-            for (int i = 0; i < word.WordLength; i++)
-            {
-                if (playerLetter == word.Content[i])
-                {
-                    if (word.RevealedCharacters[i])
-                    {
-                        isRevealed = true;
-                        break;
-                    }
-
-                    wordAsChars[i] = word.Content[i];
-                    isMatch = true;
-                    word.RevealedCharacters[i] = true;
-                    this.NumberOfRevealedLetters++;
-                }
-            }
-
-            word.PrintView = new string(wordAsChars);
-
-            if (isMatch)
-            {
-                UIMessages.RevealedLetterMessage(this.NumberOfRevealedLetters, this.Player.AttemptsToGuess);
-            }
-            else if (isRevealed)
-            {
-                UIMessages.RepeatRevealedLetterMessage(playerLetter);
-            }
-            else
-            {
-                this.Player.AttemptsToGuess++;
-                UIMessages.NotGuessedLetterMessage(playerLetter, this.Player.AttemptsToGuess);
-            }
-        }
-
         private void GameOver(IWord word)
         {
             if (this.Player.AttemptsToGuess == MaxPlayerAttempts)
@@ -204,7 +119,7 @@
             }
             else
             {
-                if (this.CommandManager.HasHelpUsed)
+                if (this.CheckManager.HasHelpUsed)
                 {
                     UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, true);
                     UIMessages.SecretWordMessage(word.Content, true);

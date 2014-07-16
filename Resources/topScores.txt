@@ -1,5 +1,5 @@
 lo,0
 dimi,0
+kiko,0
 a,1
 mimi,1
-soko,1
