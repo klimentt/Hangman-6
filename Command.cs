@@ -8,6 +8,7 @@
         Help,
         Top,
         Exit,
-        Restart
+        Restart,
+        Used
     }
 }

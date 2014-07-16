@@ -1,4 +1,6 @@
-﻿namespace HangmanSix
+﻿using System.Collections.Generic;
+
+namespace HangmanSix
 {
     /// <summary>
     /// Holding all important checking methods
@@ -14,6 +16,7 @@
             this.Player = player;
             this.CommandManager = new CommandManager();
             this.HasHelpUsed = false;
+            this.UsedLetters = new List<char>();
         }
 
         public ICommand HelpCommand { get; set; }
@@ -24,11 +27,15 @@
 
         public ICommand ExitCommand { get; set; }
 
+        public ICommand UsedCommand { get; set; }
+
         public CommandManager CommandManager { get; set; }
 
         public Player Player { get; set; }
 
         public bool HasHelpUsed { get; set; }
+
+        public List<char> UsedLetters { get; set; }
 
         public bool CheckCommand(string playerChoise, IWord word)
         {
@@ -62,12 +69,19 @@
                 return true;
             }
 
+            if (playerChoise.ToLower() == Command.Used.ToString().ToLower())
+            {
+                this.CommandManager.Proceed(this.UsedCommand);
+                return true;
+            }
+
             return false;
         }
 
         public void CheckLetterAccordance(IWord word, char playerLetter)
         {
             bool isMatch = false;
+            this.AddLetterInUsed(playerLetter);
 
             char[] wordAsChars = word.PrintView.ToCharArray();
             for (int i = 0; i < word.WordLength; i++)
@@ -103,6 +117,15 @@
             this.TopCommand = new TopCommand();
             this.RestartCommand = new RestartCommand();
             this.ExitCommand = new ExitCommand();
+            this.UsedCommand = new UsedCommand(this.UsedLetters);
+        }
+
+        public void AddLetterInUsed(char letter)
+        {
+            if (!this.UsedLetters.Contains(letter))
+            {
+                this.UsedLetters.Add(letter);
+            }
         }
     }
 }
