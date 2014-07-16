@@ -1,0 +1,33 @@
+﻿namespace HangmanSix
+{
+    using System;
+
+    public class Letter : ICloneable
+    {
+        public const ConsoleColor DefaultLetterColor = ConsoleColor.Gray;
+
+        public Letter()
+        {
+            this.Sign = DefaultSign;
+            this.Color = DefaultLetterColor;
+        }
+
+        public char Sign { get; set; }
+
+        public ConsoleColor Color { get; set; }
+
+        public int Size { get; set; }
+
+        private const char DefaultSign = 'a';
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+        public void Print()
+        {
+            Console.Write("{0} ", this.Sign);
+        }
+    }
+}

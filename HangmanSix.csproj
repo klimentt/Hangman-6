@@ -60,6 +60,7 @@
     <Compile Include="IExpandable.cs" />
     <Compile Include="IRemovable.cs" />
     <Compile Include="IWord.cs" />
+    <Compile Include="Letter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ProxyWord.cs" />
     <Compile Include="RandomUtils.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="SecretWordManager.cs" />
     <Compile Include="TopCommand.cs" />
     <Compile Include="UIMessages.cs" />
+    <Compile Include="UsedCommand.cs" />
     <Compile Include="Word.cs" />
   </ItemGroup>
   <ItemGroup>

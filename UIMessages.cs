@@ -7,7 +7,7 @@
         public static void WelcomeMessage(int maxPlayerAttempts)
         {
             Console.WriteLine("Welcome to \"Hangman\" game. Please try to guess my secret word.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat and 'exit' to quit the game.");
+            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat, 'used' to see all used letters (in red) and 'exit' to quit the game.");
             Console.WriteLine("Maximum attempts to guess the word: {0}\n", maxPlayerAttempts);
         }
 
