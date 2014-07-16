@@ -4,12 +4,12 @@
 
     public class HelpCommand : ICommand
     {
-        public IWord Word { get; set; }
-
         public HelpCommand(IWord word)
         {
             this.Word = word;
         }
+
+        public IWord Word { get; set; }
 
         public void Execute()
         {

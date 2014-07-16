@@ -1,7 +1,7 @@
 ﻿namespace HangmanSix
 {
     /// <summary>
-    /// Return exactly one instance using Singleton design pattern
+    /// Return exactly one instance of current player using Singleton design pattern
     /// </summary>
     public sealed class Player
     {

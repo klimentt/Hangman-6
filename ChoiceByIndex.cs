@@ -7,6 +7,10 @@
     /// </summary>
     public class ChoiceByIndex : ChoiceStrategy
     {
+        /// <summary>
+        /// Initialize a new instance of the HangmanSix.ChoiceByIndex class
+        /// </summary>
+        /// <param name="number"></param>
         public ChoiceByIndex(int number)
         {
             this.Index = number;

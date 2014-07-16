@@ -1,7 +1,14 @@
 ﻿namespace HangmanSix
 {
+    /// <summary>
+    /// Holding all important checking methods
+    /// </summary>
     public class CheckManager
     {
+        /// <summary>
+        /// Initialize a new instance of the HangmanSix.CheckManager class
+        /// </summary>
+        /// <param name="player"></param>
         public CheckManager(Player player)
         {
             this.Player = player;

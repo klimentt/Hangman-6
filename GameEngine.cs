@@ -14,19 +14,8 @@
         {
             this.Player = player;
             this.CheckManager = new CheckManager(this.Player);
-            //this.CommandManager = new CommandManager();
             this.ChoiceStrategy = new ChoiceRandom();
         }
-
-        //public ICommand HelpCommand { get; set; }
-
-        //public ICommand TopCommand { get; set; }
-
-        //public ICommand RestartCommand { get; set; }
-
-        //public ICommand ExitCommand { get; set; }
-
-        //public CommandManager CommandManager { get; set; }
 
         public CheckManager CheckManager { get; set; }
 

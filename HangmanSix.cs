@@ -1,7 +1,7 @@
 namespace HangmanSix
 {
     /// <summary>
-    /// Main engine class
+    /// Main engine class in the application holding Main() method
     /// </summary>
     public static class HangmanSix
     {
