@@ -14,13 +14,21 @@
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.PlayerCommand = new CommandManager();
+            this.CommandManager = new CommandManager();
             this.ChoiceStrategy = new ChoiceRandom();
         }
 
+        public ICommand HelpCommand { get; set; }
+
+        public ICommand TopCommand { get; set; }
+
+        public ICommand RestartCommand { get; set; }
+
+        public ICommand ExitCommand { get; set; }
+
         public int NumberOfRevealedLetters { get; set; }
 
-        public CommandManager PlayerCommand { get; set; }
+        public CommandManager CommandManager { get; set; }
 
         public ChoiceStrategy ChoiceStrategy { get; set; }
 
@@ -31,7 +39,7 @@
             Console.Clear();
             this.Player.AttemptsToGuess = InitialPlayerScore;
             this.NumberOfRevealedLetters = InitialRevealedLetters;
-            this.PlayerCommand.HasHelpUsed = false;
+            this.CommandManager.HasHelpUsed = false;
             this.Start();
         }
 
@@ -42,8 +50,17 @@
 
             List<string> allWords = wordsManager.GetAllSecretWords();
             IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));
+            DefineCommands(secretWord);
             UIMessages.WelcomeMessage(MaxPlayerAttempts);
             this.GamePlay(secretWord);
+        }
+
+        private void DefineCommands(IWord secretWord)
+        {
+            this.HelpCommand = new HelpCommand(secretWord);
+            this.TopCommand = new TopCommand();
+            this.RestartCommand = new RestartCommand();
+            this.ExitCommand = new ExitCommand();
         }
 
         private string ChoiceWord(ChoiceStrategy choiceStrategy, List<string> words)
@@ -107,15 +124,15 @@
         {
             if (playerChoise.ToLower() == Command.Top.ToString().ToLower())
             {
-                this.PlayerCommand.PrintTopScores();
+                this.CommandManager.Proceed(this.TopCommand);
                 return true;
             }
 
             if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
             {
-                word.PrintView = this.PlayerCommand.Help(word);
+                this.CommandManager.Proceed(this.HelpCommand);
                 this.NumberOfRevealedLetters++;
-                this.PlayerCommand.HasHelpUsed = true;
+                this.CommandManager.HasHelpUsed = true;
                 if (this.NumberOfRevealedLetters < word.WordLength)
                 {
                     UIMessages.SecretWordMessage(word.PrintView, false);
@@ -126,13 +143,13 @@
 
             if (playerChoise.ToLower() == Command.Restart.ToString().ToLower())
             {
-                this.PlayerCommand.Restart();
+                this.CommandManager.Proceed(this.RestartCommand);
                 return true;
             }
 
             if (playerChoise.ToLower() == Command.Exit.ToString().ToLower())
             {
-                this.PlayerCommand.Exit();
+                this.CommandManager.Proceed(this.ExitCommand);
                 return true;
             }
 
@@ -187,7 +204,7 @@
             }
             else
             {
-                if (this.PlayerCommand.HasHelpUsed)
+                if (this.CommandManager.HasHelpUsed)
                 {
                     UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, true);
                     UIMessages.SecretWordMessage(word.Content, true);
