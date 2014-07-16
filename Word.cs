@@ -47,7 +47,10 @@ namespace HangmanSix
                 return this.RevealedCharacters.Where(x => x).Count();
             }
 
-            private set;
+            set
+            {
+
+            }
         }
 
         public int WordLength { get; set; }

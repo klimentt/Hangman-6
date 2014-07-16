@@ -16,7 +16,7 @@ namespace HangmanSix
             this.Player = player;
             this.CommandManager = new CommandManager();
             this.HasHelpUsed = false;
-            this.UsedLetters = new List<char>();
+            this.UsedLetters = new HashSet<char>();
         }
 
         public ICommand HelpCommand { get; set; }
@@ -35,7 +35,7 @@ namespace HangmanSix
 
         public bool HasHelpUsed { get; set; }
 
-        public List<char> UsedLetters { get; set; }
+        public HashSet<char> UsedLetters { get; set; }
 
         public bool CheckCommand(string playerChoise, IWord word)
         {

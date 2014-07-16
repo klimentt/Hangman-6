@@ -8,13 +8,13 @@ namespace HangmanSix
     {
         private const int AllLetterSize = 26;
 
-        public UsedCommand(List<char> usedLetters)
+        public UsedCommand(HashSet<char> usedLetters)
         {
             this.UsedLetters = usedLetters;
             this.AllLetters = new List<Letter>();
         }
 
-        public List<char> UsedLetters { get; set; }
+        public HashSet<char> UsedLetters { get; set; }
 
         public List<Letter> AllLetters { get; set; }
 
