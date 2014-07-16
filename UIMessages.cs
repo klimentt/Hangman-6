@@ -31,11 +31,6 @@
             Console.WriteLine("Good job! You revealed {0} letters. Your mistakes are: {1}", revealedLetters, attempts);
         }
 
-        public static void RepeatRevealedLetterMessage(char letter)
-        {
-            Console.WriteLine("The letter '{0}' was revealed", letter);
-        }
-
         public static void NotGuessedLetterMessage(char letter, int attempts)
         {
             Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\"). Your mistakes are: {1}", letter, attempts);
