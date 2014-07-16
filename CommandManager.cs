@@ -10,10 +10,10 @@
         /// </summary>
         public CommandManager()
         {
-            this.HasHelpUsed = false;
+            //this.HasHelpUsed = false;
         }
 
-        public bool HasHelpUsed { get; set; }
+        //public bool HasHelpUsed { get; set; }
 
         /// <summary>
         /// Execute a specific command
