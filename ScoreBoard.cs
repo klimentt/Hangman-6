@@ -9,6 +9,15 @@
     /// </summary>
     public class ScoreBoard
     {
+        const string TopScoresDataPath = @"../../Resources/topScores.txt";
+
+        private const int NumberOfTopScores = 5;
+
+        public ScoreBoard()
+        {
+            this.Source = TopScoresDataPath;
+        }
+
         private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
 
         public Dictionary<string, int> TopScores
@@ -31,12 +40,12 @@
         /// <param name="sourceFile">Path to the locally stored file</param>
         public void Load()
         {
-            string sourceFile = this.Source;
+            //string sourceFile = this.Source;
             string[] scoreTemp;
 
             try
             {
-                string[] scores = File.ReadAllLines(sourceFile);
+                string[] scores = File.ReadAllLines(this.Source);
                 foreach (string score in scores)
                 {
                     scoreTemp = score.Split(',');
@@ -61,19 +70,19 @@
         public void AddScore(Player player)
         {
             this.TopScores.Add(player.Name, player.AttemptsToGuess);
-            ExtractTopFiveScores();
+            ExtractSpecificTopScores();
         }
 
         /// <summary>
         /// Sorts the existing Scoreboard and Removes all but the top five Players
         /// </summary>
-        private void ExtractTopFiveScores()
+        private void ExtractSpecificTopScores()
         {
             OrderScore();
 
-            if (this.TopScores.Count > 5)
+            if (this.TopScores.Count > NumberOfTopScores)
             {
-                for (int i = 5; i < scoreBoard.Count; i++)
+                for (int i = NumberOfTopScores; i < scoreBoard.Count; i++)
                 {
                     this.TopScores.Remove(this.TopScores.ElementAt(i).Key);
                 }
@@ -88,9 +97,9 @@
         {
             try
             {
-                string scoreFile = "../../Resources/topScores.txt";
+                //string scoreFile = "../../Resources/topScores.txt";
 
-                using (StreamWriter scoreWriter = new StreamWriter(scoreFile))
+                using (StreamWriter scoreWriter = new StreamWriter(this.Source))
                 {
                     foreach (var score in scoreBoard)
                     {
@@ -115,7 +124,7 @@
         {
             int possition = 1;
 
-            Console.WriteLine("***** Top Five Scores *****".PadRight(5, ' '));
+            Console.WriteLine("{0}***** Top {1} Scores *****", new string(' ', 5), NumberOfTopScores);
 
             foreach (var score in this.TopScores)
             {
@@ -127,6 +136,28 @@
         private void OrderScore()
         {
             this.TopScores = this.TopScores.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        public void Update(Player player)
+        {
+            this.Load();
+            if (this.TopScores.Count < NumberOfTopScores || player.AttemptsToGuess < this.TopScores.Values.Last())
+            {
+                while (true)
+                {
+                    UIMessages.EnterPlayerNameMessage();
+                    player.Name = Console.ReadLine();
+                    if (player.Name != string.Empty)
+                    {
+                        break;
+                    }
+                }
+
+                this.AddScore(player);
+                this.Save();
+            }
+
+            this.Print();
         }
     }
 }

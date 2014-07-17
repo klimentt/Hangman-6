@@ -5,6 +5,7 @@
     public class Letter : ICloneable
     {
         public const ConsoleColor DefaultLetterColor = ConsoleColor.Gray;
+        private const char DefaultSign = 'a';
 
         public Letter()
         {
@@ -17,8 +18,6 @@
         public ConsoleColor Color { get; set; }
 
         public int Size { get; set; }
-
-        private const char DefaultSign = 'a';
 
         public object Clone()
         {

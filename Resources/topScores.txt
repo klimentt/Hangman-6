@@ -1,5 +1,2 @@
-lo,0
-dimi,0
-kiko,0
-a,1
-mimi,1
+Miki,0
+Diko,1

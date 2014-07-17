@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class GameEngine
     {
@@ -13,19 +12,22 @@
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.CheckManager = new CheckManager(this.Player);
-            this.ChoiceStrategy = new ChoiceRandom();
         }
 
         public CheckManager CheckManager { get; set; }
 
         public ChoiceStrategy ChoiceStrategy { get; set; }
 
+        public ScoreBoard ScoreBoard { get; set; }
+
         private Player Player { get; set; }
 
         public void Initialize()
         {
             Console.Clear();
+            this.CheckManager = new CheckManager(this.Player);
+            this.ChoiceStrategy = new ChoiceRandom();
+            this.ScoreBoard = new ScoreBoard();
             this.Player.AttemptsToGuess = InitialPlayerScore;
             this.CheckManager.HasHelpUsed = false;
             this.Start();
@@ -117,39 +119,13 @@
                 {
                     UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, false);
                     UIMessages.SecretWordMessage(word.Content, true);
-                    this.UpdateAndPrintScoreBoard();
+                    this.ScoreBoard.Update(this.Player);
                 }
             }
 
             UIMessages.PressAnyKeyMessage();
             Console.ReadKey();
             this.Initialize();
-        }
-
-        private void UpdateAndPrintScoreBoard()
-        {
-            const string TopScoresDataPath = @"../../Resources/topScores.txt";
-
-            ScoreBoard topScores = new ScoreBoard();
-            topScores.Source = TopScoresDataPath;
-            topScores.Load();
-            if (this.Player.AttemptsToGuess < topScores.TopScores.Values.Last())
-            {
-                while (true)
-                {
-                    UIMessages.EnterPlayerNameMessage();
-                    this.Player.Name = Console.ReadLine();
-                    if (this.Player.Name != string.Empty)
-                    {
-                        break;
-                    }
-                }
-
-                topScores.AddScore(this.Player);
-                topScores.Save();
-            }
-
-            topScores.Print();
         }
     }
 }
