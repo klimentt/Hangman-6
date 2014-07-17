@@ -37,10 +37,8 @@
         /// <summary>
         /// Loads a localy stored scoreboard
         /// </summary>
-        /// <param name="sourceFile">Path to the locally stored file</param>
         public void Load()
         {
-            //string sourceFile = this.Source;
             string[] scoreTemp;
 
             try
@@ -92,13 +90,10 @@
         /// <summary>
         /// Saves the scoreboard to a file in the game folder
         /// </summary>
-        /// <param name="scoreBoard">Current scoreboard</param>
         public void Save()
         {
             try
             {
-                //string scoreFile = "../../Resources/topScores.txt";
-
                 using (StreamWriter scoreWriter = new StreamWriter(this.Source))
                 {
                     foreach (var score in scoreBoard)
@@ -118,7 +113,7 @@
         }
 
         /// <summary>
-        /// Prints the current top 5 scores 
+        /// Prints the current top scores 
         /// </summary>
         public void Print()
         {

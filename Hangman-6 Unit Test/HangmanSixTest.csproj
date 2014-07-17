@@ -59,6 +59,7 @@
     <Compile Include="ChoiceRandomClassTest.cs" />
     <Compile Include="ChoiceByNumberClassTest.cs" />
     <Compile Include="UIMessagesClassTest.cs" />
+    <Compile Include="WordClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HangmanSix.csproj">

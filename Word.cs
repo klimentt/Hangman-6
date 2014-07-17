@@ -8,7 +8,7 @@ namespace HangmanSix
     {
         private string content;
 
-        protected Word(string word)
+        public Word(string word)
         {
             this.Content = word;
         }
@@ -60,7 +60,7 @@ namespace HangmanSix
             return this.Content;
         }
 
-        private bool IsLettersOnly(string str)
+        public bool IsLettersOnly(string str)
         {
             foreach (char currentChar in str)
             {
