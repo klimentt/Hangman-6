@@ -18,7 +18,7 @@ namespace HangmanSix
             this.HasHelpUsed = false;
             this.UsedLetters = new HashSet<char>();
         }
-
+        
         public ICommand HelpCommand { get; set; }
 
         public ICommand TopCommand { get; set; }
@@ -36,7 +36,7 @@ namespace HangmanSix
         public bool HasHelpUsed { get; set; }
 
         public HashSet<char> UsedLetters { get; set; }
-
+        
         public bool CheckCommand(string playerChoise, IWord word)
         {
             if (playerChoise.ToLower() == Command.Top.ToString().ToLower())
@@ -47,11 +47,19 @@ namespace HangmanSix
 
             if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
             {
-                this.CommandManager.Proceed(this.HelpCommand);
-                this.HasHelpUsed = true;
-                if (word.NumberOfRevealedLetters < word.WordLength)
+                if (HasHelpUsed == true)
                 {
+                    UIMessages.UsedHelpOptionMessage();
                     UIMessages.SecretWordMessage(word.PrintView, false);
+                }
+                else
+                {
+                    this.CommandManager.Proceed(this.HelpCommand);
+                    this.HasHelpUsed = true;
+                    if (word.NumberOfRevealedLetters < word.WordLength)
+                    {
+                        UIMessages.SecretWordMessage(word.PrintView, false);
+                    }
                 }
 
                 return true;

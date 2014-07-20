@@ -110,17 +110,9 @@
             }
             else
             {
-                if (this.CheckManager.HasHelpUsed)
-                {
-                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, true);
-                    UIMessages.SecretWordMessage(word.Content, true);
-                }
-                else
-                {
-                    UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess, false);
-                    UIMessages.SecretWordMessage(word.Content, true);
-                    this.ScoreBoard.Update(this.Player);
-                }
+                UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess);
+                UIMessages.SecretWordMessage(word.Content, true);
+                this.ScoreBoard.Update(this.Player);
             }
 
             UIMessages.PressAnyKeyMessage();
