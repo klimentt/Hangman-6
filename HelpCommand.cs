@@ -19,7 +19,7 @@
                 if (!char.IsLetter(newWord[characterIndex]))
                 {
                     UIMessages.RevealingNextLetterMessage(this.Word.Content[characterIndex]);
-                    newWord = ReplaceLetter(newWord, this.Word.Content, characterIndex);
+                    newWord = ReplaceLetter(newWord, this.Word.Content[characterIndex], characterIndex);
                     this.Word.RevealedCharacters[characterIndex] = true;
                     break;
                 }
@@ -28,27 +28,12 @@
             this.Word.PrintView = newWord;
         }
 
-        private static string ReplaceLetter(string dashword, string word, int possitionToReplace)
+        private static string ReplaceLetter(string dashword, char letter, int positionToReplace)
         {
-            int currentPossition = 0;
+            char[] newWord = dashword.ToCharArray();
+            newWord[positionToReplace] = letter;
 
-            StringBuilder newWord = new StringBuilder();
-
-            while (currentPossition != dashword.Length)
-            {
-                if (currentPossition != possitionToReplace)
-                {
-                    newWord.Append(dashword[currentPossition]);
-                }
-                else if (currentPossition == possitionToReplace)
-                {
-                    newWord.Append(word[currentPossition]);
-                }
-
-                currentPossition++;
-            }
-
-            return newWord.ToString();
+            return new string(newWord);
         }
     }
 }

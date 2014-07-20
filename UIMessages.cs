@@ -42,11 +42,15 @@
             Console.WriteLine("You lost the game. Try again.");
         }
 
-        public static void GuessAllWordMessage(int attempts, bool usedHelp)
+        public static void GuessAllWordMessage(int attempts)
         {
-            Console.WriteLine("You won with {0} mistakes {1}", attempts, usedHelp ? "but you have cheated. You are not allowed to enter into the scoreboard" : String.Empty);
+            Console.WriteLine("You won with {0} mistakes", attempts);
         }
 
+        public static void UsedHelpOptionMessage()
+        {
+            Console.WriteLine("You have already used your help option!");
+        }
         public static void PressAnyKeyMessage()
         {
             Console.WriteLine("Press any key to start a new game ...");
