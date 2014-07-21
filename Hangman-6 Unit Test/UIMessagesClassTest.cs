@@ -97,12 +97,12 @@ namespace HangmanSixTest
             using (var writer = new StringWriter())
             {
                 Console.SetOut(writer);
-                UIMessages.GuessAllWordMessage(5, false);
+                UIMessages.GuessAllWordMessage(5);
 
                 writer.Flush();
 
                 string result = writer.GetStringBuilder().ToString();
-                string expected = "You won with 5 mistakes \r\n";
+                string expected = "You won with 5 mistakes\r\n";
                 Assert.AreEqual(expected, result);
             }
         }
@@ -113,12 +113,12 @@ namespace HangmanSixTest
             using (var writer = new StringWriter())
             {
                 Console.SetOut(writer);
-                UIMessages.GuessAllWordMessage(5, true);
+                UIMessages.GuessAllWordMessage(5);
 
                 writer.Flush();
 
                 string result = writer.GetStringBuilder().ToString();
-                string expected = "You won with 5 mistakes but you have cheated. You are not allowed to enter into the scoreboard\r\n";
+                string expected = "You won with 5 mistakes\r\n";
                 Assert.AreEqual(expected, result);
             }
         }
