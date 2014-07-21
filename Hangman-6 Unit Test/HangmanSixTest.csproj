@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Telerik.JustMock">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Telerik\JustMock\Libraries\Telerik.JustMock.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -59,6 +62,7 @@
     <Compile Include="ChoiceRandomClassTest.cs" />
     <Compile Include="ChoiceByNumberClassTest.cs" />
     <Compile Include="UIMessagesClassTest.cs" />
+    <Compile Include="CheckManagerClassTest.cs" />
     <Compile Include="WordClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +75,7 @@
     <Content Include="Test Resources\ScoreBoardTest.txt" />
     <Content Include="Test Resources\SecretWordLibraryTest.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

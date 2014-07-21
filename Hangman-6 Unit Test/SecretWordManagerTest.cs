@@ -1,17 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System.IO;
+    using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class SecretWordManager_Test
     {
         [TestMethod]
         public void Loading_Word_Library()
         {
-            List<string> expected = new List<string>{"computer","programmer","software","debugger","compiler","developer"};
+            List<string> expected = new List<string> { "computer", "programmer", "software", "debugger", "compiler", "developer" };
 
             HangmanSix.SecretWordManager actual = new HangmanSix.SecretWordManager();
             actual.LoadAllSecretWords(@"../../Test Resources/SecretWordLibraryTest.txt");
