@@ -27,9 +27,10 @@ namespace HangmanSix
         private void AddAllLetters()
         {
             this.AllLetters.Clear();
+            Letter letter = new Letter();
             for (int i = 0; i < AllLetterSize; i++)
             {
-                Letter currentLetter = new Letter();
+                Letter currentLetter = letter.Clone() as Letter;
                 currentLetter.Sign = Convert.ToChar(currentLetter.Sign + i);
                 if (this.UsedLetters.Contains(currentLetter.Sign))
                 {

@@ -21,7 +21,7 @@
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return this.MemberwiseClone() as Letter;
         }
 
         public void Print()
