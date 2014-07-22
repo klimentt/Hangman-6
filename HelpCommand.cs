@@ -11,6 +11,9 @@
 
         public IWord Word { get; set; }
 
+        /// <summary>
+        /// Reveal the first occurance of not revealed letter of the secret word.
+        /// </summary>
         public void Execute()
         {
             string newWord = this.Word.PrintView;

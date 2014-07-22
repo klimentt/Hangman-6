@@ -2,6 +2,7 @@
 {
     public class TopCommand : ICommand
     {
+
         public void Execute()
         {
             ScoreBoard scores = new ScoreBoard();

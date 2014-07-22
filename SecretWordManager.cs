@@ -11,6 +11,10 @@
     {
         private List<string> allSecretWords = new List<string>();
 
+        /// <summary>
+        /// Loads all the secret words from a locally stored file.
+        /// </summary>
+        /// <param name="path"></param>
         public void LoadAllSecretWords(string path)
         {
             try

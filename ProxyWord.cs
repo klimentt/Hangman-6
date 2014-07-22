@@ -29,6 +29,9 @@
             return this.RealWord.Print();
         }
 
+        /// <summary>
+        /// Form the current guessed and not guessed letters of the secret word.
+        /// </summary>
         private void FormPrintView()
         {
             StringBuilder printView = new StringBuilder();

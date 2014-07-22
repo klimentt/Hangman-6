@@ -9,7 +9,7 @@ namespace HangmanSix
         {
             Player newPlayer = Player.Instance;
             GameEngine newGame = new GameEngine(newPlayer);
-            newGame.Initialize();
+            newGame.InitializeData();
         }
     }
 }

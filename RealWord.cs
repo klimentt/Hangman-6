@@ -13,7 +13,6 @@
             {
                 return this.Content;
             }
-            set { }
         }
     }
 }

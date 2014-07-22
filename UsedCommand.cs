@@ -7,38 +7,61 @@ namespace HangmanSix
     public class UsedCommand : ICommand
     {
         private const int AllLetterSize = 26;
+        private const ConsoleColor redColor = ConsoleColor.Red;
+        private const ConsoleColor defaultColor = ConsoleColor.Gray;
 
         public UsedCommand(HashSet<char> usedLetters)
         {
             this.UsedLetters = usedLetters;
-            this.AllLetters = new List<Letter>();
+            this.AllLetters = AddAllLetters();
         }
 
         public HashSet<char> UsedLetters { get; set; }
 
-        public List<Letter> AllLetters { get; set; }
-
         public void Execute()
         {
-            this.AddAllLetters();
+            this.SetColorToTheUsedLetters();
             this.PrintAllLetters();
         }
 
-        private void AddAllLetters()
+        private List<Letter> AllLetters { get; set; }
+
+        /// <summary>
+        /// Load the alphabet.
+        /// </summary>
+        /// <returns>Returns a list where every element is of class Letter.</returns>
+        private List<Letter> AddAllLetters()
         {
-            this.AllLetters.Clear();
+            var allLetters = new List<Letter>();
+
             for (int i = 0; i < AllLetterSize; i++)
             {
                 Letter currentLetter = new Letter();
                 currentLetter.Sign = Convert.ToChar(currentLetter.Sign + i);
-                if (this.UsedLetters.Contains(currentLetter.Sign))
+                allLetters.Add(currentLetter);
+            }
+
+            return allLetters;
+        }
+
+        /// <summary>
+        /// Set red color to all used letters. 
+        /// </summary>
+        private void SetColorToTheUsedLetters()
+        {
+            for (int i = 0; i < AllLetterSize; i++)
+            {
+                var currentLetter = AllLetters[i];
+                if (this.UsedLetters.Contains(currentLetter.Sign) && currentLetter.Color != redColor)
                 {
-                    currentLetter.Color = ConsoleColor.Red;
+                    AllLetters[i].Color = redColor;
                 }
-                this.AllLetters.Add(currentLetter);
             }
         }
 
+        /// <summary>
+        /// Print all used letters in red and the rest in default color.
+        /// </summary>
         private void PrintAllLetters()
         {
             for (int i = 0; i < this.AllLetters.Count; i++)
@@ -46,7 +69,7 @@ namespace HangmanSix
                 Console.ForegroundColor = this.AllLetters[i].Color;
                 this.AllLetters[i].Print();
             }
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = defaultColor;
             Console.WriteLine();
         }
     }

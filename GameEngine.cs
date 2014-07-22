@@ -22,7 +22,7 @@
 
         private Player Player { get; set; }
 
-        public void Initialize()
+        public void InitializeData()
         {
             Console.Clear();
             this.CheckManager = new CheckManager(this.Player);
@@ -30,10 +30,13 @@
             this.ScoreBoard = new ScoreBoard();
             this.Player.AttemptsToGuess = InitialPlayerScore;
             this.CheckManager.HasHelpUsed = false;
-            this.Start();
+            this.StartGame();
         }
 
-        private void Start()
+        /// <summary>
+        /// Loads the secret word through the selected choice strategy and starts the gameplay.
+        /// </summary>
+        private void StartGame()
         {
             SecretWordManager wordsManager = new SecretWordManager();
             wordsManager.LoadAllSecretWords(PathToSecretWordsDatabase);
@@ -42,7 +45,7 @@
             IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));
             this.CheckManager.DefineCommands(secretWord);
             UIMessages.WelcomeMessage(MaxPlayerAttempts);
-            this.GamePlay(secretWord);
+            this.StartGamePlay(secretWord);
         }
 
         private string ChoiceWord(ChoiceStrategy choiceStrategy, List<string> words)
@@ -51,7 +54,11 @@
             return chosenSecretWord;
         }
 
-        private void GamePlay(IWord word)
+        /// <summary>
+        /// Check whether the player has still available guesses or not. 
+        /// </summary>
+        /// <param name="word"></param>
+        private void StartGamePlay(IWord word)
         {
             while (word.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
@@ -61,22 +68,25 @@
 
             this.GameOver(word);
         }
-
+        /// <summary>
+        /// Process the player guess. Handle commands, if the player decides to use any. If the player input is not a letter or command, an exception is thrown.  
+        /// </summary>
+        /// <param name="word"></param>
         private void InputData(IWord word)
         {
             while (true)
             {
                 UIMessages.InviteForGuessOrCommandMessage();
-                string playerChoise = Console.ReadLine().ToLower();
-                if (playerChoise == string.Empty)
+                string playerChoice = Console.ReadLine().ToLower();
+                if (playerChoice == string.Empty)
                 {
                     continue;
                 }
 
-                char playerLetter = playerChoise.ToLower()[0];
-                if (playerChoise.Length > 1)
+                char playerLetter = playerChoice.ToLower()[0];
+                if (playerChoice.Length > 1)
                 {
-                    if (!this.CheckManager.CheckCommand(playerChoise, word))
+                    if (!this.CheckManager.CheckCommand(playerChoice, word))
                     {
                         UIMessages.IncorrectInputMessage();
                     }
@@ -117,7 +127,7 @@
 
             UIMessages.PressAnyKeyMessage();
             Console.ReadKey();
-            this.Initialize();
+            this.InitializeData();
         }
     }
 }
