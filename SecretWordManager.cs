@@ -22,7 +22,7 @@
                 string[] words = File.ReadAllLines(path);
                 foreach (string line in words)
                 {
-                    allSecretWords.AddRange(line.Split(','));
+                    allSecretWords.AddRange(line.Split(new char[] { ',', ' ', ';', '.'}, StringSplitOptions.RemoveEmptyEntries));
                 }
             }
             catch (FileNotFoundException)

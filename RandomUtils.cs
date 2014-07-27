@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+
     /// <summary>
     /// Random tools to processing of database from words
     /// </summary>

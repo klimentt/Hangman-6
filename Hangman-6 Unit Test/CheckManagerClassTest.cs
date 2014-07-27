@@ -23,21 +23,6 @@ namespace HangmanSixTest
         }
 
         [TestMethod]
-        public void CheckWordPrintViewAfterProcessingTheHelpCommandTest()
-        {
-            Player player = Player.Instance;
-            player.Name = "Milena";
-            player.AttemptsToGuess = 0;
-
-            var checkManager = new CheckManager(player);
-            IWord word = new ProxyWord("test");
-            checkManager.DefineCommands(word);
-            checkManager.CheckCommand("Help", word);
-
-            Assert.AreEqual(word.PrintView, "t---");
-        }
-
-        [TestMethod]
         public void IsThePlayerUsedHisHelpOptionTest()
         {
             Player player = Player.Instance;

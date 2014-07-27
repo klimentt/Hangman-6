@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿
 
 namespace HangmanSix
 {
     using System;
+    using System.Collections.Generic;
 
     public class UsedCommand : ICommand
     {

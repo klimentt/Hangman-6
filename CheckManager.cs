@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Holding all important checking methods
     /// </summary>

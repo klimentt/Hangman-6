@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Collections.Generic;
+
     /// <summary>
     /// Keeps data for the top scores
     /// </summary>

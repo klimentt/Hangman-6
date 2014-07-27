@@ -1,8 +1,7 @@
-﻿using System.Linq;
-
-namespace HangmanSix
+﻿namespace HangmanSix
 {
     using System;
+    using System.Linq;
 
     public class Word : IWord
     {

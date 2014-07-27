@@ -12,6 +12,8 @@
         public GameEngine(Player player)
         {
             this.Player = player;
+            this.ConsoleWrapper = new FakeConsoleWrapper(false);
+            this.ChoiceStrategy = new ChoiceByIndex(2);
         }
 
         public CheckManager CheckManager { get; set; }
@@ -20,23 +22,25 @@
 
         public ScoreBoard ScoreBoard { get; set; }
 
+        public IConsole ConsoleWrapper { get; set; }
+
         private Player Player { get; set; }
 
         public void InitializeData()
         {
             Console.Clear();
             this.CheckManager = new CheckManager(this.Player);
-            this.ChoiceStrategy = new ChoiceRandom();
             this.ScoreBoard = new ScoreBoard();
             this.Player.AttemptsToGuess = InitialPlayerScore;
             this.CheckManager.HasHelpUsed = false;
-            this.StartGame();
+            var secretWord = this.LoadSecretWord();
+            this.GamePlayStart(secretWord);
         }
 
         /// <summary>
-        /// Loads the secret word through the selected choice strategy and starts the gameplay.
+        /// Loads the secret word through the selected choice strategy.
         /// </summary>
-        private void StartGame()
+        private IWord LoadSecretWord()
         {
             SecretWordManager wordsManager = new SecretWordManager();
             wordsManager.LoadAllSecretWords(PathToSecretWordsDatabase);
@@ -45,7 +49,8 @@
             IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));
             this.CheckManager.DefineCommands(secretWord);
             UIMessages.WelcomeMessage(MaxPlayerAttempts);
-            this.StartGamePlay(secretWord);
+            
+            return secretWord;
         }
 
         private string ChoiceWord(ChoiceStrategy choiceStrategy, List<string> words)
@@ -58,7 +63,7 @@
         /// Check whether the player has still available guesses or not. 
         /// </summary>
         /// <param name="word"></param>
-        private void StartGamePlay(IWord word)
+        private void GamePlayStart(IWord word)
         {
             while (word.NumberOfRevealedLetters < word.Content.Length && this.Player.AttemptsToGuess < 10)
             {
@@ -77,7 +82,7 @@
             while (true)
             {
                 UIMessages.InviteForGuessOrCommandMessage();
-                string playerChoice = Console.ReadLine().ToLower();
+                string playerChoice = this.ConsoleWrapper.ReadLine().ToLower();
 
                 if (playerChoice == string.Empty)
                 {
@@ -130,10 +135,6 @@
                 this.ScoreBoard.Update(this.Player);
                 this.ScoreBoard.Print();
             }
-
-            UIMessages.PressAnyKeyMessage();
-            Console.ReadKey();
-            this.InitializeData();
         }
 
         private bool IsTheCommandIsCorrect(string command)

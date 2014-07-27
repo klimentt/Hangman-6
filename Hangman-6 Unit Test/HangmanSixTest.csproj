@@ -61,6 +61,7 @@
     <Compile Include="UIMessagesClassTest.cs" />
     <Compile Include="LetterClassTest.cs" />
     <Compile Include="CheckManagerClassTest.cs" />
+    <Compile Include="GameEngineClassTest.cs" />
     <Compile Include="WordClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Test Resources\emptyfile.txt" />
+    <Content Include="Test Resources\nonOrderedWords.txt" />
     <Content Include="Test Resources\ScoreBoardTest.txt" />
     <Content Include="Test Resources\ScoreBoardTest1.txt" />
     <Content Include="Test Resources\SecretWordLibraryTest.txt" />

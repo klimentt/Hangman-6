@@ -90,7 +90,6 @@ namespace HangmanSixTest
                 Assert.AreEqual(expected, result);
             }
         }
-
     }
 }
 
