@@ -8,16 +8,48 @@ namespace HangmanSixTest
     public class CheckManagerClassTest
     {
         [TestMethod]
-        public void IsTheCommandWrongTest()
+        public void CheckWordPrintViewAfterProcessingTheHelpCommandTest()
         {
             Player player = Player.Instance;
             player.Name = "Milena";
-            player.AttemptsToGuess = 5;
-            var checkManager = new CheckManager(player);
-            Word testWord = new Word("testWord");
-            bool isCorrect = checkManager.CheckCommand("wrongCommand", testWord);
+            player.AttemptsToGuess = 0;
 
-            Assert.IsFalse(isCorrect);
+            var checkManager = new CheckManager(player);
+            IWord word = new ProxyWord("test");
+            checkManager.DefineCommands(word);
+            checkManager.CheckCommand("Help", word);
+
+            Assert.AreEqual(word.PrintView, "t---");
+        }
+
+        [TestMethod]
+        public void CheckWordPrintViewAfterProcessingTheHelpCommandTest()
+        {
+            Player player = Player.Instance;
+            player.Name = "Milena";
+            player.AttemptsToGuess = 0;
+
+            var checkManager = new CheckManager(player);
+            IWord word = new ProxyWord("test");
+            checkManager.DefineCommands(word);
+            checkManager.CheckCommand("Help", word);
+
+            Assert.AreEqual(word.PrintView, "t---");
+        }
+
+        [TestMethod]
+        public void IsThePlayerUsedHisHelpOptionTest()
+        {
+            Player player = Player.Instance;
+            player.Name = "Milena";
+            player.AttemptsToGuess = 0;
+
+            var checkManager = new CheckManager(player);
+            IWord word = new ProxyWord("test");
+            checkManager.DefineCommands(word);
+            checkManager.CheckCommand("Help", word);
+            
+            Assert.IsTrue(checkManager.HasHelpUsed);
         }
 
         [TestMethod]
@@ -70,7 +102,7 @@ namespace HangmanSixTest
         }
 
         [TestMethod]
-        public void CheckWhenTheGuessIsWrongIfThePlayerAttemptsToGuessAreIncreased()
+        public void CheckWhenTheGuessIsWrongIfThePlayerAttemptsToGuessAreIncreasedTest()
         {
             Player player = Player.Instance;
             player.Name = "Milena";

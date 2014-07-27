@@ -18,7 +18,7 @@ namespace HangmanSix
             this.HasHelpUsed = false;
             this.UsedLetters = new HashSet<char>();
         }
-        
+
         public ICommand HelpCommand { get; set; }
 
         public ICommand TopCommand { get; set; }
@@ -36,16 +36,17 @@ namespace HangmanSix
         public bool HasHelpUsed { get; set; }
 
         public HashSet<char> UsedLetters { get; set; }
-        
-        public bool CheckCommand(string playerChoice, IWord word)
+
+        public void CheckCommand(string playerChoice, IWord word)
         {
-            if (playerChoice.ToLower() == Command.Top.ToString().ToLower())
+            var playerChoiceToLower = playerChoice.ToLower();
+
+            if (playerChoiceToLower == Command.Top.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.TopCommand);
-                return true;
             }
 
-            if (playerChoice.ToLower() == Command.Help.ToString().ToLower())
+            else if (playerChoiceToLower == Command.Help.ToString().ToLower())
             {
                 if (HasHelpUsed == true)
                 {
@@ -61,27 +62,22 @@ namespace HangmanSix
                         UIMessages.SecretWordMessage(word.PrintView, false);
                     }
                 }
-
-                return true;
             }
 
-            if (playerChoice.ToLower() == Command.Restart.ToString().ToLower())
+            else if (playerChoiceToLower == Command.Restart.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.RestartCommand);
             }
 
-            if (playerChoice.ToLower() == Command.Exit.ToString().ToLower())
+            else if (playerChoiceToLower == Command.Exit.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.ExitCommand);
             }
 
-            if (playerChoice.ToLower() == Command.Used.ToString().ToLower())
+            else if (playerChoiceToLower == Command.Used.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.UsedCommand);
-                return true;
             }
-
-            return false;
         }
 
         public void CheckLetterAccordance(IWord word, char playerLetter)

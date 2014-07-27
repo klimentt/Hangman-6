@@ -87,7 +87,11 @@
                 char playerLetter = playerChoice.ToLower()[0];
                 if (playerChoice.Length > 1)
                 {
-                    if (!this.CheckManager.CheckCommand(playerChoice, word))
+                    if (IsTheCommandIsCorrect(playerChoice))
+                    {
+                        this.CheckManager.CheckCommand(playerChoice, word);
+                    }
+                    else
                     {
                         UIMessages.IncorrectInputMessage();
                     }
@@ -130,6 +134,21 @@
             UIMessages.PressAnyKeyMessage();
             Console.ReadKey();
             this.InitializeData();
+        }
+
+        private bool IsTheCommandIsCorrect(string command)
+        {
+            var commandToLower = command.ToLower();
+            if (Command.Exit.ToString().ToLower() == commandToLower ||
+                Command.Help.ToString().ToLower() == commandToLower ||
+                Command.Restart.ToString().ToLower() == commandToLower ||
+                Command.Top.ToString().ToLower() == commandToLower ||
+                Command.Used.ToString().ToLower() == commandToLower)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
