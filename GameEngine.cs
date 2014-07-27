@@ -78,6 +78,7 @@
             {
                 UIMessages.InviteForGuessOrCommandMessage();
                 string playerChoice = Console.ReadLine().ToLower();
+
                 if (playerChoice == string.Empty)
                 {
                     continue;
