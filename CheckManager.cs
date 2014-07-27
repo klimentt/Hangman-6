@@ -37,15 +37,15 @@ namespace HangmanSix
 
         public HashSet<char> UsedLetters { get; set; }
         
-        public bool CheckCommand(string playerChoise, IWord word)
+        public bool CheckCommand(string playerChoice, IWord word)
         {
-            if (playerChoise.ToLower() == Command.Top.ToString().ToLower())
+            if (playerChoice.ToLower() == Command.Top.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.TopCommand);
                 return true;
             }
 
-            if (playerChoise.ToLower() == Command.Help.ToString().ToLower())
+            if (playerChoice.ToLower() == Command.Help.ToString().ToLower())
             {
                 if (HasHelpUsed == true)
                 {
@@ -65,19 +65,17 @@ namespace HangmanSix
                 return true;
             }
 
-            if (playerChoise.ToLower() == Command.Restart.ToString().ToLower())
+            if (playerChoice.ToLower() == Command.Restart.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.RestartCommand);
-                return true;
             }
 
-            if (playerChoise.ToLower() == Command.Exit.ToString().ToLower())
+            if (playerChoice.ToLower() == Command.Exit.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.ExitCommand);
-                return true;
             }
 
-            if (playerChoise.ToLower() == Command.Used.ToString().ToLower())
+            if (playerChoice.ToLower() == Command.Used.ToString().ToLower())
             {
                 this.CommandManager.Proceed(this.UsedCommand);
                 return true;

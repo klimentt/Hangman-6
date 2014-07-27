@@ -60,6 +60,7 @@
     <Compile Include="ChoiceByNumberClassTest.cs" />
     <Compile Include="UIMessagesClassTest.cs" />
     <Compile Include="LetterClassTest.cs" />
+    <Compile Include="CheckManagerClassTest.cs" />
     <Compile Include="WordClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test Resources\ScoreBoardTest.txt" />
+    <Content Include="Test Resources\ScoreBoardTest1.txt" />
     <Content Include="Test Resources\SecretWordLibraryTest.txt" />
   </ItemGroup>
   <Choose>

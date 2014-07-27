@@ -124,6 +124,7 @@
                 UIMessages.GuessAllWordMessage(this.Player.AttemptsToGuess);
                 UIMessages.SecretWordMessage(word.Content, true);
                 this.ScoreBoard.Update(this.Player);
+                this.ScoreBoard.Print();
             }
 
             UIMessages.PressAnyKeyMessage();

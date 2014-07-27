@@ -9,16 +9,16 @@
     /// </summary>
     public class ScoreBoard
     {
-        const string TopScoresDataPath = @"../../Resources/topScores.txt";
+        private const string TopScoresDataPath = @"../../Resources/topScores.txt";
 
         private const int NumberOfTopScores = 5;
+
+        private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
 
         public ScoreBoard()
         {
             this.Source = TopScoresDataPath;
         }
-
-        private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
 
         public Dictionary<string, int> TopScores
         {
@@ -33,6 +33,27 @@
         }
 
         public string Source { get; set; }
+
+        private void OrderScore()
+        {
+            this.TopScores = this.TopScores.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        /// <summary>
+        /// Sorts the existing Scoreboard and Removes all but the top five Players
+        /// </summary>
+        private void ExtractSpecificTopScores()
+        {
+            OrderScore();
+
+            if (this.TopScores.Count > NumberOfTopScores)
+            {
+                for (int i = NumberOfTopScores; i < scoreBoard.Count; i++)
+                {
+                    this.TopScores.Remove(this.TopScores.ElementAt(i).Key);
+                }
+            }
+        }
 
         /// <summary>
         /// Loads a localy stored scoreboard
@@ -72,22 +93,6 @@
         }
 
         /// <summary>
-        /// Sorts the existing Scoreboard and Removes all but the top five Players
-        /// </summary>
-        private void ExtractSpecificTopScores()
-        {
-            OrderScore();
-
-            if (this.TopScores.Count > NumberOfTopScores)
-            {
-                for (int i = NumberOfTopScores; i < scoreBoard.Count; i++)
-                {
-                    this.TopScores.Remove(this.TopScores.ElementAt(i).Key);
-                }
-            }
-        }
-
-        /// <summary>
         /// Saves the scoreboard to a file in the game folder
         /// </summary>
         public void Save()
@@ -123,14 +128,9 @@
 
             foreach (var score in this.TopScores)
             {
-                Console.WriteLine("{0}.  {1} --> {2} mistakes", possition, score.Key.PadRight(10, ' '), score.Value.ToString().PadLeft(5, ' '));
+                Console.WriteLine("{0}.  {1} --> {2} mistakes", possition, score.Key, score.Value.ToString());
                 possition++;
             }
-        }
-
-        private void OrderScore()
-        {
-            this.TopScores = this.TopScores.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
 
         public void Update(Player player)
@@ -151,8 +151,6 @@
                 this.AddScore(player);
                 this.Save();
             }
-
-            this.Print();
         }
     }
 }

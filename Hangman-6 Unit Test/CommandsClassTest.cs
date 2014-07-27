@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HangmanSix;
+using System.IO;
 
 namespace HangmanSixTest
 {
@@ -8,7 +10,7 @@ namespace HangmanSixTest
     public class CommandsClassTest
     {
         [TestMethod]
-        public void HelpCommand_Test_FirstCharacter()
+        public void HelpCommandTestFirstCharacter()
         {
             CommandManager testCommands = new CommandManager();
 
@@ -23,7 +25,7 @@ namespace HangmanSixTest
         }
 
         [TestMethod]
-        public void HelpCommand_Test_MiddleCharacter()
+        public void HelpCommandTestMiddleCharacter()
         {
             CommandManager testCommands = new CommandManager();
 
@@ -38,7 +40,7 @@ namespace HangmanSixTest
         }
 
         [TestMethod]
-        public void HelpCommand_Test_LastCharacter()
+        public void HelpCommandTestLastCharacter()
         {
             CommandManager testCommands = new CommandManager();
 
@@ -50,6 +52,47 @@ namespace HangmanSixTest
             testCommands.Proceed(helpCommand);
 
             Assert.AreEqual(expectedResult, word.PrintView);
+        }
+
+        [TestMethod]
+
+        public void UsedCommandWithUsedLettersTest()
+        {
+
+            using (var writer = new StringWriter())
+            {
+                CommandManager testCommands = new CommandManager();
+                var usedLetters = new HashSet<char>() { 'a', 'b', 'c' };
+                ICommand usedCommand = new UsedCommand(usedLetters);
+
+                Console.SetOut(writer);
+                usedCommand.Execute();
+                writer.Flush();
+
+                string result = writer.GetStringBuilder().ToString();
+                string expected = "a b c d e f g h i j k l m n o p q r s t u v w x y z \r\n";
+                Assert.AreEqual(expected, result);
+            }
+        }
+
+        [TestMethod]
+        public void UsedCommandWithoutUsedLettersTest()
+        {
+
+            using (var writer = new StringWriter())
+            {
+                CommandManager testCommands = new CommandManager();
+                var usedLetters = new HashSet<char>();
+                ICommand usedCommand = new UsedCommand(usedLetters);
+
+                Console.SetOut(writer);
+                usedCommand.Execute();
+                writer.Flush();
+
+                string result = writer.GetStringBuilder().ToString();
+                string expected = "a b c d e f g h i j k l m n o p q r s t u v w x y z \r\n";
+                Assert.AreEqual(expected, result);
+            }
         }
     }
 }

@@ -35,7 +35,6 @@ namespace HangmanSixTest
             actual.Source = "../../Test Resources/ScoreBoardTest.txt";
             actual.Load();
 
-
             Assert.AreEqual(expected.TopScores.ToString(), actual.TopScores.ToString());
         }
 
@@ -66,6 +65,32 @@ namespace HangmanSixTest
 
             testboard.Save();
         }
+
+        [TestMethod]
+        public void PrintMethodTest()
+        {
+            ScoreBoard scoreBoard = new ScoreBoard();
+            
+            scoreBoard.Source = "../../Test Resources/ScoreBoardTest.txt";
+            scoreBoard.Load();
+            using (var writer = new StringWriter())
+            {
+                Console.SetOut(writer);
+                scoreBoard.Print();
+
+                writer.Flush();
+
+                string result = writer.GetStringBuilder().ToString();
+                string expected = "     ***** Top 5 Scores *****\r\n"
+                    + "1.  Milena --> 5 mistakes\r\n"
+                    + "2.  Ivan --> 4 mistakes\r\n"
+                    + "3.  Stancho --> 3 mistakes\r\n"
+                    + "4.  Iva --> 2 mistakes\r\n"
+                    + "5.  Mitko --> 1 mistakes\r\n";
+                Assert.AreEqual(expected, result);
+            }
+        }
+
     }
 }
 
