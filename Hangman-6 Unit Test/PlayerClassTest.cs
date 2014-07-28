@@ -1,9 +1,9 @@
-﻿using System;
-using HangmanSix;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using HangmanSix;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class PlayerClassTest
     {

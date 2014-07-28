@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-using System.IO;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+    using System.IO;
+
     [TestClass]
     public class CommandsClassTest
     {

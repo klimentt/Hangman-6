@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+
     [TestClass]
     public class WordClassTest
     {

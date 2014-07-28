@@ -7,8 +7,9 @@
     /// </summary>
     public class FakeConsoleWrapper : IConsole
     {
-        public FakeConsoleWrapper(bool hasCounter)
+        public FakeConsoleWrapper(bool hasCounter, bool emptyString)
         {
+            this.EmptyString = emptyString;
             this.HasCounter = hasCounter;
             this.Counter = 0;
         }
@@ -24,9 +25,17 @@
                 }
             }
 
-            return ((char)('a' + this.Counter)).ToString();
+            if (this.EmptyString)
+            {
+                return string.Empty;    
+            }
+            else
+            {
+                return ((char)('a' + this.Counter)).ToString();
+            }
         }
 
+        private bool EmptyString { get; set; }
         private bool HasCounter { get; set; }
         private int Counter { get; set; }
     }

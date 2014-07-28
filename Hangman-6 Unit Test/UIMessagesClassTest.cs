@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using System.IO;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+
     [TestClass]
     public class UIMessagesClassTest
     {
@@ -29,7 +29,7 @@ namespace HangmanSixTest
 
         [TestMethod]
         public void SecretWordMessageNoGameOverTest()
-        {
+        {   
             using (var writer = new StringWriter())
             {
                 Console.SetOut(writer);

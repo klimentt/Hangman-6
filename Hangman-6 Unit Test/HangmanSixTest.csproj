@@ -62,6 +62,7 @@
     <Compile Include="LetterClassTest.cs" />
     <Compile Include="CheckManagerClassTest.cs" />
     <Compile Include="GameEngineClassTest.cs" />
+    <Compile Include="FakeConsoleClassTest.cs" />
     <Compile Include="WordClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +74,12 @@
   <ItemGroup>
     <Content Include="Test Resources\emptyfile.txt" />
     <Content Include="Test Resources\nonOrderedWords.txt" />
+    <Content Include="Test Resources\saveScores.txt" />
     <Content Include="Test Resources\ScoreBoardTest.txt" />
     <Content Include="Test Resources\ScoreBoardTest1.txt" />
     <Content Include="Test Resources\SecretWordLibraryTest.txt" />
+    <Content Include="Test Resources\secretWordsLibrary.txt" />
+    <Content Include="Test Resources\updateScoresTestFile.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

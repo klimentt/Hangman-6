@@ -9,28 +9,31 @@
         private const int MaxPlayerAttempts = 10;
         private const string PathToSecretWordsDatabase = @"../../Resources/secretWordsLibrary.txt";
 
-        public GameEngine(Player player)
+        public GameEngine(Player player, IConsole consoleWrapper)
         {
             this.Player = player;
-            this.ConsoleWrapper = new FakeConsoleWrapper(false);
-            this.ChoiceStrategy = new ChoiceByIndex(2);
+            this.ConsoleWrapper = consoleWrapper;
+            this.ChoiceStrategy = new ChoiceRandom();
+            this.PathToSecretWordsDirectory = PathToSecretWordsDatabase;
         }
 
-        public CheckManager CheckManager { get; set; }
+        private Player Player { get; set; }
+
+        private CheckManager CheckManager { get; set; }
+
+        private ScoreBoard ScoreBoard { get; set; }
 
         public ChoiceStrategy ChoiceStrategy { get; set; }
 
-        public ScoreBoard ScoreBoard { get; set; }
-
         public IConsole ConsoleWrapper { get; set; }
 
-        private Player Player { get; set; }
+        public string PathToSecretWordsDirectory { get; set; }
 
         public void InitializeData()
         {
             Console.Clear();
             this.CheckManager = new CheckManager(this.Player);
-            this.ScoreBoard = new ScoreBoard();
+            this.ScoreBoard = new ScoreBoard(this.ConsoleWrapper);
             this.Player.AttemptsToGuess = InitialPlayerScore;
             this.CheckManager.HasHelpUsed = false;
             var secretWord = this.LoadSecretWord();
@@ -43,7 +46,7 @@
         private IWord LoadSecretWord()
         {
             SecretWordManager wordsManager = new SecretWordManager();
-            wordsManager.LoadAllSecretWords(PathToSecretWordsDatabase);
+            wordsManager.LoadAllSecretWords(this.PathToSecretWordsDirectory);
 
             List<string> allWords = wordsManager.GetAllSecretWords();
             IWord secretWord = new ProxyWord(this.ChoiceWord(this.ChoiceStrategy, allWords));

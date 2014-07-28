@@ -1,9 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+    using System.IO;
+
     [TestClass]
     public class CheckManagerClassTest
     {
@@ -23,7 +24,7 @@ namespace HangmanSixTest
         }
 
         [TestMethod]
-        public void IsThePlayerUsedHisHelpOptionTest()
+        public void IsTheHasHelpUsedStateTrueWhenUsingHelpOptionTest()
         {
             Player player = Player.Instance;
             player.Name = "Milena";
@@ -35,6 +36,33 @@ namespace HangmanSixTest
             checkManager.CheckCommand("Help", word);
             
             Assert.IsTrue(checkManager.HasHelpUsed);
+        }
+
+        [TestMethod]
+        public void IsTheHasHelpUsedStateFalseWhenUsingHelpOptionTest()
+        {
+            Player player = Player.Instance;
+            player.Name = "Milena";
+            player.AttemptsToGuess = 0;
+
+            var checkManager = new CheckManager(player);
+            IWord word = new ProxyWord("test");
+            checkManager.DefineCommands(word);
+            checkManager.HasHelpUsed = true;
+
+            using (var writer = new StringWriter())
+            {
+                Console.SetOut(writer);
+                checkManager.CheckCommand("Help", word);
+
+                writer.Flush();
+
+                string result = writer.GetStringBuilder().ToString();
+                string expected = "You have already used your help option!\r\n" +
+                          "The secret word is:----\r\n";
+                          
+                Assert.AreEqual(expected, result);
+            }
         }
 
         [TestMethod]

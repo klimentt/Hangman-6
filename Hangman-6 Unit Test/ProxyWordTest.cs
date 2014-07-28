@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+
     [TestClass]
     public class ProxyWordTest
     {

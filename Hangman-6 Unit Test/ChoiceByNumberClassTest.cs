@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HangmanSix;
-
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using HangmanSix;
+
     [TestClass]
     public class ChoiceByNumberClassTest
     {

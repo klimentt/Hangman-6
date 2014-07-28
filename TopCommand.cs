@@ -5,7 +5,8 @@
 
         public void Execute()
         {
-            ScoreBoard scores = new ScoreBoard();
+            var consoleWrapper = new ConsoleWrapper();
+            ScoreBoard scores = new ScoreBoard(consoleWrapper);
             scores.Source = "../../Resources/topScores.txt";
             scores.Load();
             scores.Print();

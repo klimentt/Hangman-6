@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using HangmanSix;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace HangmanSixTest
+﻿namespace HangmanSixTest
 {
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using HangmanSix;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class SecretWordManager_Test
     {

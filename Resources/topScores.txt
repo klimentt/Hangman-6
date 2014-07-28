@@ -1,5 +1,5 @@
 Miki,0
-os,0
-pesho,0
-gergn,0
-panko,2
+os,2
+pesho,4
+gergn,5
+panko,10

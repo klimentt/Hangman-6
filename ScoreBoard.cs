@@ -16,9 +16,10 @@
 
         private Dictionary<string, int> scoreBoard = new Dictionary<string, int>();
 
-        public ScoreBoard()
+        public ScoreBoard(IConsole consoleWrapper)
         {
             this.Source = TopScoresDataPath;
+            this.ConsoleWrapper = consoleWrapper;
         }
 
         public Dictionary<string, int> TopScores
@@ -34,6 +35,8 @@
         }
 
         public string Source { get; set; }
+
+        public IConsole ConsoleWrapper { get; set; }
 
         private void OrderScore()
         {
@@ -142,11 +145,18 @@
                 while (true)
                 {
                     UIMessages.EnterPlayerNameMessage();
-                    player.Name = Console.ReadLine();
-                    if (player.Name != string.Empty)
+                    player.Name = this.ConsoleWrapper.ReadLine();
+
+                    if (player.Name == string.Empty)
                     {
-                        break;
+                        throw new ArgumentException("The player's name cannot be an empty strig!");
                     }
+                    else if (this.TopScores.ContainsKey(player.Name))
+                    {
+                        throw new ArgumentException("Existing name!");
+                    }
+
+                    break;
                 }
 
                 this.AddScore(player);

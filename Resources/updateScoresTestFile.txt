@@ -1,0 +1,5 @@
+stamen,1
+Pavel,5
+Ivan,6
+Stoqn,7
+Pesho,8

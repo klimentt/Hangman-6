@@ -51,10 +51,6 @@
         {
             Console.WriteLine("You have already used your help option!");
         }
-        public static void PressAnyKeyMessage()
-        {
-            Console.WriteLine("Press any key to start a new game ...");
-        }
 
         public static void EnterPlayerNameMessage()
         {
